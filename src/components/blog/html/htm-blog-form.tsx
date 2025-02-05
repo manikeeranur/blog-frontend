@@ -1,14 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { useForm, Controller } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { postHtmlBlog, putHtmlBlog } from "@/src/services/HtmlBlogServices";
+import { postHtmlBlog } from "@/src/services/HtmlBlogServices";
 import { useBlog } from "@/src/context/BlogContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { HtmlBlogType } from "@/src/services/blog.types";
 
 const quillFormats = [
   "bold",
@@ -59,13 +60,12 @@ const HtmlBlogForm = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-    watch,
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: { menuName: "", heading: "", content: "", example: "" },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: HtmlBlogType) => {
     try {
       await postHtmlBlog(data);
       // if (selectedObject) {
@@ -147,7 +147,7 @@ const HtmlBlogForm = () => {
                 theme="snow"
                 formats={quillFormats}
                 modules={quillModules}
-                onChange={(value: any) => field.onChange(value)}
+                onChange={(value: string) => field.onChange(value)}
               />
             )}
           />
@@ -168,7 +168,7 @@ const HtmlBlogForm = () => {
                 theme="snow"
                 formats={quillFormats}
                 modules={quillModules}
-                onChange={(value: any) => field.onChange(value)}
+                onChange={(value: string) => field.onChange(value)}
               />
             )}
           />

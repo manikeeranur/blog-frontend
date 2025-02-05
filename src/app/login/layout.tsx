@@ -10,7 +10,11 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/src/components/blog/html/app-sidebar";
 import React from "react";
-const Loginlayout = ({ children }: any) => {
+const Loginlayout = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
   return (
     <>
       <SidebarProvider>

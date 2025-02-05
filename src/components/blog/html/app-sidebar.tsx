@@ -1,5 +1,4 @@
 "use client";
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +10,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useBlog } from "@/src/context/BlogContext";
+import { HtmlBlogType } from "@/src/services/blog.types";
 import { Link } from "react-scroll";
 
 export function AppSidebar() {
@@ -22,7 +22,7 @@ export function AppSidebar() {
           <SidebarGroupLabel className="text-xl">Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {blogData?.map((item: any, index: any) => (
+              {blogData?.map((item: HtmlBlogType, index: number) => (
                 <SidebarMenuItem key={index}>
                   <SidebarMenuButton asChild>
                     <Link
