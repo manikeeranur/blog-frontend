@@ -4,6 +4,11 @@
 
 @layer base {
   :root {
+    --font-poppins: "Poppins", sans-serif;
+    --font-geist-sans: "Geist Sans", sans-serif;
+    --font-geist-mono: "Geist Mono", monospace;
+    --font-roboto: "Roboto", sans-serif;
+
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -78,12 +83,21 @@
 }
 
 * {
-  @apply box-border;
+  box-sizing: border-box;
 }
 
 body {
-  @apply bg-background text-foreground;
+  font-family: var(--font-poppins);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
 }
+
+/* {
+  @apply box-border;
+}
+body {
+  @apply bg-background text-foreground;
+} */
 
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
