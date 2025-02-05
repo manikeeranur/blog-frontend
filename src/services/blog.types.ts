@@ -4,3 +4,14 @@ export interface HtmlBlogType {
   example: string;
   menuName: string;
 }
+
+export interface LoginDetails {
+  email: string;
+  password: string;
+}
+
+export interface SignupDetails {
+  username: string;
+  email: string;
+  password: string;
+}

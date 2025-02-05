@@ -18,7 +18,6 @@ export default function Layout({
     <SidebarProvider>
       <AppSidebar />
       <main className="relative">
-        {/* <SidebarTrigger className="absolute top-5 left-4 z-10" /> */}
         <header className="flex h-16 shrink-0 items-center gap-2 px-4 sticky top-0 left-0 bg-white z-10">
           <SidebarTrigger className="mt-1" />
 

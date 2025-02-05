@@ -1,0 +1,110 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { EyeIcon, EyeOffIcon, LockIcon, MailIcon } from "lucide-react";
+import { loginUser } from "@/src/services/HtmlBlogServices";
+
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+const loginSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
+
+export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter(); // Initialize router
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginCredentials>({
+    resolver: yupResolver(loginSchema),
+  });
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const onSubmit = async (data: LoginCredentials) => {
+    try {
+      const token = await loginUser(data);
+      localStorage.setItem("token", token);
+      router.push("/blog");
+    } catch (error: any) {
+      setErrorMessage(error.message);
+    }
+  };
+
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-full max-w-xs space-y-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+          <div>
+            <div className="relative flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring pl-2">
+              <MailIcon className="h-5 w-5 text-muted-foreground" />
+              <Input
+                type="email"
+                placeholder="Email"
+                className="border-0 focus-visible:ring-0 shadow-none"
+                autoComplete="off"
+                {...register("email")}
+              />
+            </div>
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
+          </div>
+
+          <div>
+            <div className="relative flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring px-2">
+              <LockIcon className="h-5 w-5 text-muted-foreground" />
+              <Input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="border-0 focus-visible:ring-0 shadow-none"
+                autoComplete="off"
+                {...register("password")}
+              />
+              <button type="button" onClick={togglePasswordVisibility}>
+                {showPassword ? (
+                  <EyeOffIcon className="h-5 w-5 text-muted-foreground" />
+                ) : (
+                  <EyeIcon className="h-5 w-5 text-muted-foreground" />
+                )}
+              </button>
+            </div>
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
+          </div>
+
+          {errorMessage && (
+            <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+          )}
+
+          <Button type="submit" className="w-full">
+            Log In
+          </Button>
+        </form>
+      </div>
+    </div>
+  );
+}
