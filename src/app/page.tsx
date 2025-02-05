@@ -1,7 +1,5 @@
 "use client";
-import ProtectedRoute from "@/src/components/ProtectedRoute";
 import dynamic from "next/dynamic";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,7 +18,6 @@ const HtmlBlog = dynamic(() => import("@/src/components/blog/html/html-blog"), {
 export default function Page() {
   return (
     <>
-      {/* <ProtectedRoute> */}
       <SidebarProvider>
         <AppSidebar />
         <main className="relative">
@@ -51,7 +48,6 @@ export default function Page() {
           <HtmlBlog />
         </main>
       </SidebarProvider>
-      {/* </ProtectedRoute> */}
     </>
   );
 }

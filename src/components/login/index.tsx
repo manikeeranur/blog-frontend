@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon, LockIcon, MailIcon } from "lucide-react";
-import { loginUser } from "@/src/services/HtmlBlogServices";
+import { getErrorMessage, loginUser } from "@/src/services/HtmlBlogServices";
 
 interface LoginCredentials {
   email: string;
@@ -29,7 +29,7 @@ const loginSchema = yup.object().shape({
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
   const {
     register,
@@ -48,8 +48,8 @@ export default function Login() {
       const token = await loginUser(data);
       localStorage.setItem("token", token);
       router.push("/blog");
-    } catch (error: any) {
-      setErrorMessage(error.message);
+    } catch (error: unknown) {
+      setErrorMessage(getErrorMessage(error));
     }
   };
 
