@@ -1,14 +1,14 @@
 "use client";
+
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { X } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
 
 interface ShareLinkDialogProps {
@@ -16,39 +16,38 @@ interface ShareLinkDialogProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   headerText: string;
   children: ReactNode;
-  handleClose?: () => void;
+  headerComponent?: ReactNode;
+  footerComponent?: ReactNode;
+  className?: string;
+  handleClose: () => void;
 }
 
 const CustomModal: React.FC<ShareLinkDialogProps> = ({
   open,
   setOpen,
-  handleClose,
   headerText,
   children,
+  footerComponent,
+  className,
+  handleClose,
 }) => {
-  const closeModal = () => {
-    setOpen(false);
-  };
   return (
     <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
-      <DialogContent className="sm:max-w-[50%]">
-        <DialogHeader>
+      <DialogContent
+        className={`custom-modal ${className ? className : "sm:max-w-[50%]"}`}
+        onInteractOutside={(event) => event.preventDefault()}
+      >
+        <DialogHeader className="w-full flex-row justify-between items-center">
           <DialogTitle>{headerText}</DialogTitle>
-          {/* <DialogDescription>
-            Anyone who has this link will be able to view this.
-          </DialogDescription> */}
+
+          <X className="cursor-pointer" onClick={() => handleClose()} />
         </DialogHeader>
-        <div className="flex items-center space-x-2">{children}</div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={handleClose ? handleClose : closeModal}
-            >
-              Close
-            </Button>
-          </DialogClose>
+
+        <div className="max-h-[80vh] overflow-auto no-scrollbar">
+          {children}
+        </div>
+        <DialogFooter className="sm:justify-end">
+          {footerComponent}
         </DialogFooter>
       </DialogContent>
     </Dialog>

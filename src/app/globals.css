@@ -108,6 +108,10 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  .custom-modal [data-state="open"],
+  .custom-modal [aria-label="Close"] {
+    display: none !important;
+  }
 }
 
 .ql-code-block-container {

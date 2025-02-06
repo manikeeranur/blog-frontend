@@ -10,5 +10,9 @@ export default function LogoutButton() {
     router.push("/login");
   };
 
-  return <Button onClick={handleLogout}>Logout</Button>;
+  return (
+    <Button onClick={handleLogout} className="bg-[#374151]">
+      Logout
+    </Button>
+  );
 }

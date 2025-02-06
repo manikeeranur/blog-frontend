@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/src/components/blog/html/app-sidebar";
+import LogoutButton from "@/src/components/LogoutButton";
 import { ChevronsRight } from "lucide-react";
 
 export default function Layout({
@@ -40,7 +41,12 @@ export default function Layout({
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
+
+          <div className="ms-auto">
+            <LogoutButton />
+          </div>
         </header>
+
         {children}
       </main>
     </SidebarProvider>

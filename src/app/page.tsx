@@ -10,12 +10,15 @@ import {
 import { ChevronsRight } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "../components/blog/html/app-sidebar";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const HtmlBlog = dynamic(() => import("@/src/components/blog/html/html-blog"), {
   ssr: false,
 });
 
 export default function Page() {
+  const router = useRouter();
   return (
     <>
       <SidebarProvider>
@@ -44,6 +47,10 @@ export default function Page() {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
+
+            <div className="ms-auto">
+              <Button onClick={() => router.push("/login")}>Admin Login</Button>
+            </div>
           </header>
           <HtmlBlog />
         </main>

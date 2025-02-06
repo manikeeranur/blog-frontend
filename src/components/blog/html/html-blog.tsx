@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 import CustomModal from "../../common/custom-modal";
 import HtmlBlogForm from "./htm-blog-form";
+import { deleteHtmlBlog } from "@/src/services/HtmlBlogServices";
 
 const Element = dynamic(
   () => import("react-scroll").then((mod) => mod.Element),
@@ -18,13 +19,20 @@ const Element = dynamic(
 
 const HtmlBlog = () => {
   const [open, setOpen] = useState(false);
-  const searchParems = usePathname();
-  const { blogData, loading, error } = useBlog();
+  const [deleteBlog, setDeleteBlog] = useState(false);
+  const pathName = usePathname();
+  const { blogData, loading, error, fetchBlog } = useBlog();
   const [isClient, setIsClient] = useState(false);
+  const [selectedObject, setselectedObject] = useState<any>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const handleClose = () => {
+    setselectedObject(null);
+    setOpen(false);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -32,25 +40,39 @@ const HtmlBlog = () => {
   return (
     <SidebarInset>
       <div id="html-blog" className="p-4 md:p-8">
-        {searchParems.includes("/blog") && (
-          <Button onClick={() => setOpen(true)} className="mb-5">
+        {pathName.includes("/blog") && (
+          <Button onClick={() => setOpen(true)} className="mb-5 bg-[#374151]">
             Add Blog
           </Button>
         )}
         {isClient &&
-          blogData?.map((item: HtmlBlogType, index: number) => (
+          blogData?.map((item: any, index: number) => (
             <Element name={item?.menuName.replace(/\s+/g, "-")} key={index}>
               <div className="text-gray-500">
                 <div className="flex items-center justify-between">
                   <h4 className="mb-3 text-[#374151]">
                     <strong>{item?.heading}</strong>
                   </h4>
-                  {searchParems.includes("/blog") && (
+                  {pathName.includes("/blog") && (
                     <div className="flex gap-3">
-                      <Button size="icon">
+                      <Button
+                        size="icon"
+                        onClick={() => {
+                          setOpen(true);
+                          setselectedObject(item);
+                        }}
+                        className="bg-blue-700 hover:bg-blue-900"
+                      >
                         <Pencil />
                       </Button>
-                      <Button size="icon">
+                      <Button
+                        size="icon"
+                        onClick={() => {
+                          setDeleteBlog(true);
+                          setselectedObject(item);
+                        }}
+                        className="bg-red-600 hover:bg-red-900"
+                      >
                         <Trash2 />
                       </Button>
                     </div>
@@ -71,8 +93,50 @@ const HtmlBlog = () => {
               </div>
             </Element>
           ))}
-        <CustomModal headerText="Add Blog" open={open} setOpen={setOpen}>
-          <HtmlBlogForm />
+        <CustomModal
+          headerText={selectedObject ? "Edit Blog" : "Add Blog"}
+          open={open}
+          setOpen={setOpen}
+          handleClose={() => {
+            setOpen(false);
+            setselectedObject(null);
+          }}
+        >
+          <HtmlBlogForm
+            selectedObject={selectedObject}
+            handleClose={handleClose}
+          />
+        </CustomModal>
+
+        <CustomModal
+          headerText="Delete Blog"
+          className="w-1/4"
+          open={deleteBlog}
+          setOpen={setDeleteBlog}
+          handleClose={() => {
+            setDeleteBlog(false);
+            setselectedObject(null);
+          }}
+          footerComponent={
+            <div className="text-end">
+              <Button
+                onClick={async () => {
+                  try {
+                    await deleteHtmlBlog(selectedObject?._id);
+                    setDeleteBlog(false);
+                    setselectedObject(null);
+                    await fetchBlog(); // ✅ Fetch updated blog list
+                  } catch (error) {
+                    console.error("Error deleting blog:", error);
+                  }
+                }}
+              >
+                Delete
+              </Button>
+            </div>
+          }
+        >
+          Are You Sure Delete this Blog
         </CustomModal>
       </div>
     </SidebarInset>
