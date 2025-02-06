@@ -96,7 +96,7 @@ const HtmlBlogForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="mb-5 w-full">
         {/* Side Menu Name Field */}
         <div className="mb-3">
           <label>Side Menu Name:</label>
