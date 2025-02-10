@@ -154,6 +154,7 @@ import { postHtmlBlog, putHtmlBlog } from "@/src/services/HtmlBlogServices";
 import { useBlog } from "@/src/context/BlogContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import TiptapEditor from "@/src/components/tiptap-editor/index";
 
 interface HtmlBlogFormProps {
   selectedObject: any;
@@ -291,6 +292,13 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
             />
           )}
         />
+        {/* <Controller
+          name="content"
+          control={control}
+          render={({ field }) => (
+            <TiptapEditor value={field.value} onChange={field.onChange} />
+          )}
+        /> */}
         {errors.content && (
           <p className="text-danger">{errors.content.message}</p>
         )}

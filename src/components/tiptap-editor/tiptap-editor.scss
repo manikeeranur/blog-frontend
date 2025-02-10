@@ -1,0 +1,47 @@
+.tiptap-editor {
+  .tiptap-control-group {
+    .editor-btn {
+      border: 1px solid #e0e0e0;
+      width: 40px;
+      height: 40px;
+      padding: 5px;
+      border-radius: 4px;
+      &.is-active {
+        color: #fff;
+        background-color: #000;
+      }
+    }
+  }
+  .ProseMirror {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 4px 0 1rem;
+    &.ProseMirror-focused {
+      border: 1px solid #e0e0e0 !important;
+      outline: none !important;
+    }
+  }
+}
+.ProseMirror {
+  padding: 1rem;
+  ol {
+    list-style-type: decimal-leading-zero;
+    margin-left: 2rem;
+  }
+  ul {
+    list-style-type: circle;
+    margin-left: 2rem;
+  }
+}
+table {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+
+  th,
+  td {
+    border: 1px solid #e0e0e0;
+    padding: 5px 10px;
+    min-width: 100px;
+  }
+}
