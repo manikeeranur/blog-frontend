@@ -12,6 +12,11 @@ import CustomModal from "../../common/custom-modal";
 import HtmlBlogForm from "./htm-blog-form";
 import { deleteHtmlBlog } from "@/src/services/HtmlBlogServices";
 
+import hljs from "highlight.js";
+// import "highlight.js/styles/github-dark.css";
+import "highlight.js/styles/atom-one-dark.css";
+
+
 const Element = dynamic(
   () => import("react-scroll").then((mod) => mod.Element),
   { ssr: false }
@@ -23,14 +28,40 @@ const HtmlBlog = () => {
   const pathName = usePathname();
   const { blogData, loading, error, fetchBlog } = useBlog();
   const [isClient, setIsClient] = useState(false);
-  const [selectedObject, setselectedObject] = useState<any>(null);
+  const [selectedObject, setSelectedObject] = useState<any>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  // Function to apply syntax highlighting
+  const highlightCodeBlocks = () => {
+    setTimeout(() => {
+      document.querySelectorAll("pre code").forEach((block) => {
+        hljs.highlightElement(block as HTMLElement);
+      });
+    }, 0);
+  };
+
+  useEffect(() => {
+    if (isClient) {
+      highlightCodeBlocks(); // Initial highlight
+
+      // MutationObserver to detect content updates
+      const observer = new MutationObserver(() => {
+        highlightCodeBlocks();
+      });
+
+      document.querySelectorAll(".content, .example").forEach((target) => {
+        observer.observe(target, { childList: true, subtree: true });
+      });
+
+      return () => observer.disconnect(); // Cleanup observer on unmount
+    }
+  }, [blogData, isClient]);
+
   const handleClose = () => {
-    setselectedObject(null);
+    setSelectedObject(null);
     setOpen(false);
   };
 
@@ -59,7 +90,7 @@ const HtmlBlog = () => {
                         size="icon"
                         onClick={() => {
                           setOpen(true);
-                          setselectedObject(item);
+                          setSelectedObject(item);
                         }}
                         className="bg-blue-700 hover:bg-blue-900"
                       >
@@ -69,7 +100,7 @@ const HtmlBlog = () => {
                         size="icon"
                         onClick={() => {
                           setDeleteBlog(true);
-                          setselectedObject(item);
+                          setSelectedObject(item);
                         }}
                         className="bg-red-600 hover:bg-red-900"
                       >
@@ -99,7 +130,7 @@ const HtmlBlog = () => {
           setOpen={setOpen}
           handleClose={() => {
             setOpen(false);
-            setselectedObject(null);
+            setSelectedObject(null);
           }}
         >
           <HtmlBlogForm
@@ -115,7 +146,7 @@ const HtmlBlog = () => {
           setOpen={setDeleteBlog}
           handleClose={() => {
             setDeleteBlog(false);
-            setselectedObject(null);
+            setSelectedObject(null);
           }}
           footerComponent={
             <div className="text-end">
@@ -124,7 +155,7 @@ const HtmlBlog = () => {
                   try {
                     await deleteHtmlBlog(selectedObject?._id);
                     setDeleteBlog(false);
-                    setselectedObject(null);
+                    setSelectedObject(null);
                     await fetchBlog(); // ✅ Fetch updated blog list
                   } catch (error) {
                     console.error("Error deleting blog:", error);

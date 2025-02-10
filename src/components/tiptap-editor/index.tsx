@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import "./tiptap-editor.scss";
 import TableExt from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
@@ -52,6 +52,7 @@ const MenuBar = ({ editor }: any) => {
   return (
     <div className="tiptap-control-group flex flex-wrap items-center gap-2">
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={`editor-btn font-black ${
           editor.isActive("heading", { level: 1 }) && "is-active"
@@ -60,6 +61,7 @@ const MenuBar = ({ editor }: any) => {
         <Heading1 />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={`editor-btn font-extrabold ${
           editor.isActive("heading", { level: 2 }) && "is-active"
@@ -68,6 +70,7 @@ const MenuBar = ({ editor }: any) => {
         <Heading2 />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={`editor-btn font-semibold ${
           editor.isActive("heading", { level: 3 }) && "is-active"
@@ -76,6 +79,7 @@ const MenuBar = ({ editor }: any) => {
         <Heading3 />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
         className={`editor-btn font-medium ${
           editor.isActive("heading", { level: 4 }) && "is-active"
@@ -84,6 +88,7 @@ const MenuBar = ({ editor }: any) => {
         <Heading4 />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
         className={`editor-btn font-normal ${
           editor.isActive("heading", { level: 5 }) && "is-active"
@@ -92,6 +97,7 @@ const MenuBar = ({ editor }: any) => {
         <Heading5 />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
         className={`editor-btn font-normal ${
           editor.isActive("heading", { level: 6 }) && "is-active"
@@ -101,6 +107,7 @@ const MenuBar = ({ editor }: any) => {
       </button>
 
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleHighlight().run()}
         className={`editor-btn ${
           editor.isActive("highlight") ? "is-active" : ""
@@ -110,6 +117,7 @@ const MenuBar = ({ editor }: any) => {
       </button>
 
       <button
+        type="button"
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         className={`editor-btn ${
           editor.isActive({ textAlign: "left" }) ? "is-active" : ""
@@ -119,6 +127,7 @@ const MenuBar = ({ editor }: any) => {
       </button>
 
       <button
+        type="button"
         onClick={() => editor.chain().focus().setTextAlign("center").run()}
         className={`editor-btn ${
           editor.isActive({ textAlign: "center" }) ? "is-active" : ""
@@ -128,6 +137,7 @@ const MenuBar = ({ editor }: any) => {
       </button>
 
       <button
+        type="button"
         onClick={() => editor.chain().focus().setTextAlign("right").run()}
         className={`editor-btn ${
           editor.isActive({ textAlign: "right" }) ? "is-active" : ""
@@ -137,6 +147,7 @@ const MenuBar = ({ editor }: any) => {
       </button>
 
       <button
+        type="button"
         onClick={() => editor.chain().focus().setTextAlign("justify").run()}
         className={`editor-btn ${
           editor.isActive({ textAlign: "justify" }) ? "is-active" : ""
@@ -146,6 +157,7 @@ const MenuBar = ({ editor }: any) => {
       </button>
 
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
         className={`editor-btn ${editor.isActive("bold") && "is-active"}`}
@@ -153,6 +165,7 @@ const MenuBar = ({ editor }: any) => {
         <Bold />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
         className={`editor-btn ${editor.isActive("italic") && "is-active"}`}
@@ -160,6 +173,7 @@ const MenuBar = ({ editor }: any) => {
         <Italic />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleStrike().run()}
         disabled={!editor.can().chain().focus().toggleStrike().run()}
         className={`editor-btn ${editor.isActive("strike") && "is-active"}`}
@@ -168,6 +182,7 @@ const MenuBar = ({ editor }: any) => {
       </button>
 
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         className={`editor-btn ${editor.isActive("code") && "is-active"}`}
       >
@@ -175,12 +190,14 @@ const MenuBar = ({ editor }: any) => {
       </button>
 
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={`editor-btn ${editor.isActive("bulletList") && "is-active"}`}
       >
         <List />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={`editor-btn ${
           editor.isActive("orderedList") && "is-active"
@@ -190,6 +207,7 @@ const MenuBar = ({ editor }: any) => {
       </button>
 
       <button
+        type="button"
         onClick={() => editor.chain().focus().setHorizontalRule().run()}
         className={`editor-btn`}
       >
@@ -216,6 +234,7 @@ const MenuBar = ({ editor }: any) => {
       />
 
       <button
+        type="button"
         onClick={() => {
           const url = prompt("Enter the URL:");
           if (url) {
@@ -227,6 +246,7 @@ const MenuBar = ({ editor }: any) => {
         <LinkIcon />
       </button>
       <button
+        type="button"
         onClick={() =>
           editor.chain().focus().insertTable({ rows: 3, cols: 3 }).run()
         }
@@ -235,42 +255,49 @@ const MenuBar = ({ editor }: any) => {
         <Table />
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().addRowBefore().run()}
         className="editor-btn !w-fit"
       >
         Inser Row Top
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().addRowAfter().run()}
         className="editor-btn !w-fit"
       >
         Insert Row Bottom
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().deleteRow().run()}
         className="editor-btn !w-fit"
       >
         Delete Row
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().addColumnBefore().run()}
         className="editor-btn !w-fit"
       >
         Insert Column Left
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().addColumnAfter().run()}
         className="editor-btn !w-fit"
       >
         Insert Column Right
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().deleteColumn().run()}
         className="editor-btn !w-fit"
       >
         Column Remove
       </button>
       <button
+        type="button"
         onClick={() => editor.chain().focus().deleteTable().run()}
         className="editor-btn !w-fit"
       >
@@ -317,6 +344,12 @@ const TiptapEditor = ({ value, onChange }: any) => {
       onChange(editor.getHTML());
     },
   });
+
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value);
+    }
+  }, [value, editor]);
 
   return (
     <div className="tiptap-editor">
