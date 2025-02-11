@@ -8,6 +8,7 @@ import {
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/src/components/blog/html/app-sidebar";
 import LogoutButton from "@/src/components/LogoutButton";
+import { ThemeToggle } from "@/src/components/theme/theme-toggle";
 import { ChevronsRight } from "lucide-react";
 
 export default function Layout({
@@ -19,7 +20,7 @@ export default function Layout({
     <SidebarProvider>
       <AppSidebar />
       <main className="relative">
-        <header className="flex h-16 shrink-0 items-center gap-2 px-4 sticky top-0 left-0 bg-white z-10">
+        <header className="blog-header flex h-16 shrink-0 items-center gap-2 px-4 sticky top-0 left-0 bg-white  z-10">
           <SidebarTrigger className="mt-1" />
 
           <Breadcrumb className="py-1.5 px-3 rounded-lg">
@@ -44,6 +45,7 @@ export default function Layout({
 
           <div className="ms-auto">
             <LogoutButton />
+            <ThemeToggle />
           </div>
         </header>
 

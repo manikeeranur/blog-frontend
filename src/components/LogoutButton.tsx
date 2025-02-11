@@ -11,7 +11,7 @@ export default function LogoutButton() {
   };
 
   return (
-    <Button onClick={handleLogout} className="bg-[#374151]">
+    <Button onClick={handleLogout} className="bg-foreground text-background">
       Logout
     </Button>
   );

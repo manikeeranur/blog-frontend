@@ -12,6 +12,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "../components/blog/html/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { ThemeToggle } from "../components/theme/theme-toggle";
 
 const HtmlBlog = dynamic(() => import("@/src/components/blog/html/html-blog"), {
   ssr: false,
@@ -25,7 +26,7 @@ export default function Page() {
         <AppSidebar />
         <main className="relative">
           {/* <SidebarTrigger className="absolute top-5 left-4 z-10" /> */}
-          <header className="flex h-16 shrink-0 items-center gap-2 px-4 sticky top-0 left-0 bg-white z-10">
+          <header className="flex h-16 shrink-0 items-center gap-2 px-4 sticky top-0 left-0 bg-background z-10">
             <SidebarTrigger className="mt-1" />
 
             <Breadcrumb className="py-1.5 px-3 rounded-lg">
@@ -48,8 +49,9 @@ export default function Page() {
               </BreadcrumbList>
             </Breadcrumb>
 
-            <div className="ms-auto">
+            <div className="ms-auto flex items-center gap-3">
               <Button onClick={() => router.push("/login")}>Admin Login</Button>
+              <ThemeToggle />
             </div>
           </header>
           <HtmlBlog />

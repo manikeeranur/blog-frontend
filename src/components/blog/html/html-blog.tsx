@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useBlog } from "@/src/context/BlogContext";
 import "react-quill-new/dist/quill.snow.css";
@@ -13,7 +13,6 @@ import HtmlBlogForm from "./htm-blog-form";
 import { deleteHtmlBlog } from "@/src/services/HtmlBlogServices";
 
 import hljs from "highlight.js";
-// import "highlight.js/styles/github-dark.css";
 import "highlight.js/styles/atom-one-dark.css";
 import { ThemeToggle } from "../../theme/theme-toggle";
 
@@ -29,36 +28,35 @@ const HtmlBlog = () => {
   const { blogData, loading, error, fetchBlog } = useBlog();
   const [isClient, setIsClient] = useState(false);
   const [selectedObject, setSelectedObject] = useState<any>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Function to apply syntax highlighting
-  const highlightCodeBlocks = () => {
-    setTimeout(() => {
-      document.querySelectorAll("pre code").forEach((block) => {
-        hljs.highlightElement(block as HTMLElement);
-      });
-    }, 0);
-  };
-
   useEffect(() => {
-    if (isClient) {
-      highlightCodeBlocks(); // Initial highlight
+    if (!isClient) return;
 
-      // MutationObserver to detect content updates
-      const observer = new MutationObserver(() => {
-        highlightCodeBlocks();
-      });
+    const highlightCode = () => {
+      setTimeout(() => {
+        document.querySelectorAll("pre code").forEach((block) => {
+          hljs.highlightElement(block as HTMLElement);
+        });
+      }, 200);
+    };
 
-      document.querySelectorAll(".content, .example").forEach((target) => {
-        observer.observe(target, { childList: true, subtree: true });
-      });
+    highlightCode();
 
-      return () => observer.disconnect(); // Cleanup observer on unmount
+    const observer = new MutationObserver(() => {
+      highlightCode();
+    });
+
+    if (contentRef.current) {
+      observer.observe(contentRef.current, { childList: true, subtree: true });
     }
-  }, [blogData, isClient]);
+
+    return () => observer.disconnect();
+  }, [blogData]);
 
   const handleClose = () => {
     setSelectedObject(null);
@@ -70,19 +68,21 @@ const HtmlBlog = () => {
 
   return (
     <SidebarInset>
-      <div id="html-blog" className="p-4 md:p-8">
-        <ThemeToggle />
+      <div id="html-blog" className="p-4 md:p-8" ref={contentRef}>
         {pathName.includes("/blog") && (
-          <Button onClick={() => setOpen(true)} className="mb-5 bg-[#374151]">
+          <Button
+            onClick={() => setOpen(true)}
+            className="mb-5 bg-foreground text-background"
+          >
             Add Blog
           </Button>
         )}
         {isClient &&
-          blogData?.slice(0, 1).map((item: any, index: number) => (
+          blogData?.map((item: any, index: number) => (
             <Element name={item?.menuName.replace(/\s+/g, "-")} key={index}>
-              <div className="text-gray-500">
+              <div>
                 <div className="flex items-center justify-between">
-                  <h4 className="mb-3 text-[#374151]">
+                  <h4 className="mb-3 text-foreground">
                     <strong>{item?.heading}</strong>
                   </h4>
                   {pathName.includes("/blog") && (
@@ -113,11 +113,11 @@ const HtmlBlog = () => {
                 {isClient && (
                   <>
                     <div
-                      className="mb-3 content"
+                      className="mb-3 content text-content"
                       dangerouslySetInnerHTML={{ __html: item?.content }}
                     />
                     <div
-                      className="mb-5 example"
+                      className="mb-5 example text-content"
                       dangerouslySetInnerHTML={{ __html: item?.example }}
                     />
                   </>
@@ -129,10 +129,7 @@ const HtmlBlog = () => {
           headerText={selectedObject ? "Edit Blog" : "Add Blog"}
           open={open}
           setOpen={setOpen}
-          handleClose={() => {
-            setOpen(false);
-            setSelectedObject(null);
-          }}
+          handleClose={handleClose}
         >
           <HtmlBlogForm
             selectedObject={selectedObject}
