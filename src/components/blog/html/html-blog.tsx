@@ -15,7 +15,7 @@ import { deleteHtmlBlog } from "@/src/services/HtmlBlogServices";
 import hljs from "highlight.js";
 // import "highlight.js/styles/github-dark.css";
 import "highlight.js/styles/atom-one-dark.css";
-
+import { ThemeToggle } from "../../theme/theme-toggle";
 
 const Element = dynamic(
   () => import("react-scroll").then((mod) => mod.Element),
@@ -71,13 +71,14 @@ const HtmlBlog = () => {
   return (
     <SidebarInset>
       <div id="html-blog" className="p-4 md:p-8">
+        <ThemeToggle />
         {pathName.includes("/blog") && (
           <Button onClick={() => setOpen(true)} className="mb-5 bg-[#374151]">
             Add Blog
           </Button>
         )}
         {isClient &&
-          blogData?.map((item: any, index: number) => (
+          blogData?.slice(0, 1).map((item: any, index: number) => (
             <Element name={item?.menuName.replace(/\s+/g, "-")} key={index}>
               <div className="text-gray-500">
                 <div className="flex items-center justify-between">

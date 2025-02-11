@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { BlogProvider } from "@/src/context/BlogContext";
+import { ThemeProvider } from "../components/theme/theme-provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -39,7 +40,11 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased`}
       >
-        <BlogProvider>{children}</BlogProvider>
+        <BlogProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
+        </BlogProvider>
       </body>
     </html>
   );
