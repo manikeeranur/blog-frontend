@@ -50,21 +50,23 @@ export function AppSidebar() {
                   <span className="flex-1"> HTML</span>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-2">
-                  {blogData
-                    ?.filter((item: any) => item.contentType === "HTML")
-                    .map((item: HtmlBlogType, index: number) => (
-                      <Link
-                        key={index}
-                        to={item.menuName.replace(/\s+/g, "-")}
-                        smooth={true}
-                        duration={400}
-                        offset={-80}
-                        className="pl-7 flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
-                      >
-                        <CodeXml className="size-4 text-muted-foreground" />
-                        {item.menuName}
-                      </Link>
-                    ))}
+                  <div className="max-h-[52vh] overflow-y-auto small-scrollbar">
+                    {blogData
+                      ?.filter((item: any) => item.contentType === "HTML")
+                      .map((item: HtmlBlogType, index: number) => (
+                        <Link
+                          key={index}
+                          to={item.menuName.replace(/\s+/g, "-")}
+                          smooth={true}
+                          duration={400}
+                          offset={-80}
+                          className="pl-7 flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
+                        >
+                          <CodeXml className="size-4 text-muted-foreground" />
+                          {item.menuName}
+                        </Link>
+                      ))}
+                  </div>
                 </AccordionContent>
               </AccordionItem>
 

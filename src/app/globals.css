@@ -99,6 +99,7 @@ body {
 .content {
   color: var(--content);
 }
+
 .dark .content strong,
 .dark .example strong {
   color: #fff !important;
@@ -129,6 +130,39 @@ pre code.hljs {
   .custom-modal [data-state="open"],
   .custom-modal [aria-label="Close"] {
     display: none !important;
+  }
+
+  .text-content ul {
+    list-style-type: circle;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .text-content ol {
+    list-style-type: decimal-leading-zero;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .text-content ul li,
+  .text-content ol li {
+    margin: 0 0 0 1.5rem;
+  }
+  .tiptap-control-group {
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 1;
+  }
+  .small-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    background: #282c35;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .small-scrollbar::-webkit-scrollbar-thumb {
+    background: grey;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer;
   }
 }
 
