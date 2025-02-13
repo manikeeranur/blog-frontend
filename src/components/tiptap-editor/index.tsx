@@ -26,6 +26,7 @@ import {
   LinkIcon,
   Highlighter,
   Table,
+  CornerDownLeftIcon,
 } from "lucide-react";
 
 import { EditorContent, useEditor } from "@tiptap/react";
@@ -104,6 +105,16 @@ const MenuBar = ({ editor }: any) => {
         }`}
       >
         <Heading6 />
+      </button>
+
+      <button
+        type="button"
+        onClick={() =>
+          editor.chain().focus().insertContent("<p><br/></p>").run()
+        }
+        className="editor-btn"
+      >
+        <CornerDownLeftIcon />
       </button>
 
       <button

@@ -15,7 +15,7 @@ import { deleteHtmlBlog } from "@/src/services/HtmlBlogServices";
 import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css";
 import { ThemeToggle } from "../../theme/theme-toggle";
-
+import "@/src/components/tiptap-editor/tiptap-editor.scss";
 const Element = dynamic(
   () => import("react-scroll").then((mod) => mod.Element),
   { ssr: false }
@@ -68,7 +68,7 @@ const HtmlBlog = () => {
 
   return (
     <SidebarInset>
-      <div id="html-blog" className="p-4 md:p-8" ref={contentRef}>
+      <div id="html-blog" className="tiptap p-4 md:p-8" ref={contentRef}>
         {pathName.includes("/blog") && (
           <Button
             onClick={() => setOpen(true)}
@@ -120,6 +120,9 @@ const HtmlBlog = () => {
                       className="mb-5 example text-content"
                       dangerouslySetInnerHTML={{ __html: item?.example }}
                     />
+                    <div className="my-8">
+                      <hr />
+                    </div>
                   </>
                 )}
               </div>

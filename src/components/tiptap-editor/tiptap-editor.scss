@@ -1,3 +1,11 @@
+.tiptap mark {
+  background-color: #faf594;
+  border-radius: 0.4rem;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0.1rem 0.3rem;
+}
+
 .tiptap-editor {
   .tiptap-control-group {
     .editor-btn {
