@@ -3,6 +3,8 @@ export interface HtmlBlogType {
   content: string;
   example: string;
   menuName: string;
+  contentType: string;
+  createdAt?: Date;
 }
 
 export interface LoginDetails {

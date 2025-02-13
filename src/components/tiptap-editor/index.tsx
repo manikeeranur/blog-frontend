@@ -27,6 +27,7 @@ import {
   Highlighter,
   Table,
   CornerDownLeftIcon,
+  CodeXml,
 } from "lucide-react";
 
 import { EditorContent, useEditor } from "@tiptap/react";
@@ -197,7 +198,7 @@ const MenuBar = ({ editor }: any) => {
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         className={`editor-btn ${editor.isActive("code") && "is-active"}`}
       >
-        <Code />
+        <CodeXml />
       </button>
 
       <button

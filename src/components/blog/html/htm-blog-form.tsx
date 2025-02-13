@@ -9,6 +9,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import TiptapEditor from "@/src/components/tiptap-editor/index";
 import "highlight.js/styles/atom-one-dark.css";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface HtmlBlogFormProps {
   selectedObject: any;
@@ -27,6 +35,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
   } = useForm({
     resolver: yupResolver(
       Yup.object().shape({
+        contentType: Yup.string().required("Content Type is required"),
         menuName: Yup.string().required("Side Menu Name is required"),
         heading: Yup.string().required("Heading is required"),
         content: Yup.string()
@@ -36,6 +45,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
       })
     ),
     defaultValues: {
+      contentType: "HTML",
       menuName: "",
       heading: "",
       content: "",
@@ -48,6 +58,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
 
     if (selectedObject) {
       reset({
+        contentType: selectedObject.contentType || "HTML",
         menuName: selectedObject.menuName || "",
         heading: selectedObject.heading || "",
         content: selectedObject.content || "",
@@ -75,6 +86,42 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+      <div className="mb-3">
+        <label>Content Type:</label>
+        <Controller
+          name="contentType"
+          control={control}
+          render={({ field }) => (
+            <Select
+              onValueChange={(value) => {
+                field.onChange(value); // ✅ Update form state
+              }}
+              value={field.value || "HTML"} // ✅ Ensure default value is set
+            >
+              <SelectTrigger id="framework">
+                <SelectValue
+                  placeholder="Select Content Type"
+                  defaultValue={"HTML"}
+                />
+              </SelectTrigger>
+              <SelectContent
+                className="tw-z-[1301]"
+                side="bottom"
+                align="start"
+              >
+                <SelectGroup>
+                  <SelectItem value="HTML">HTML</SelectItem>
+                  <SelectItem value="CSS">CSS</SelectItem>
+                  <SelectItem value="Javascript">Javascript</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+        />
+        {errors.contentType && (
+          <p className="text-danger">{errors.contentType.message}</p>
+        )}
+      </div>
       <div className="mb-3">
         <label>Side Menu Name:</label>
         <Controller

@@ -34,7 +34,7 @@ const CustomModal: React.FC<ShareLinkDialogProps> = ({
   return (
     <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
       <DialogContent
-        className={`custom-modal ${className ? className : "sm:max-w-[50%]"}`}
+        className={`${className ? className : "sm:max-w-[50%]"}`}
         onInteractOutside={(event) => event.preventDefault()}
       >
         <DialogHeader className="w-full flex-row justify-between items-center">
