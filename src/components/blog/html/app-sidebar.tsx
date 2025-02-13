@@ -139,19 +139,21 @@ export function AppSidebar() {
                   <span className="flex-1">HTML</span>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-2">
-                  {blogData?.map((item: HtmlBlogType, index: number) => (
-                    <Link
-                      key={index}
-                      to={item.menuName.replace(/\s+/g, "-")}
-                      smooth={true}
-                      duration={400}
-                      offset={-80}
-                      className="pl-7 flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
-                    >
-                      <CodeXml className="size-4 text-muted-foreground" />
-                      {item.menuName}
-                    </Link>
-                  ))}
+                  {blogData
+                    ?.filter((item: any) => item.contentType === "HTML")
+                    .map((item: HtmlBlogType, index: number) => (
+                      <Link
+                        key={index}
+                        to={item.menuName.replace(/\s+/g, "-")}
+                        smooth={true}
+                        duration={400}
+                        offset={-80}
+                        className="pl-7 flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
+                      >
+                        <CodeXml className="size-4 text-muted-foreground" />
+                        {item.menuName}
+                      </Link>
+                    ))}
                 </AccordionContent>
               </AccordionItem>
 
@@ -162,19 +164,21 @@ export function AppSidebar() {
                   <span className="flex-1">CSS</span>
                 </AccordionTrigger>
                 <AccordionContent className="space-y-2">
-                  {blogData?.map((item: HtmlBlogType, index: number) => (
-                    <Link
-                      key={index}
-                      to={item.menuName.replace(/\s+/g, "-")}
-                      smooth={true}
-                      duration={400}
-                      offset={-80}
-                      className="pl-7  flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
-                    >
-                      <CodeXml className="size-4 text-muted-foreground" />
-                      {item.menuName}
-                    </Link>
-                  ))}
+                  {blogData
+                    ?.filter((item: any) => item.contentType === "CSS")
+                    .map((item: HtmlBlogType, index: number) => (
+                      <Link
+                        key={index}
+                        to={item.menuName.replace(/\s+/g, "-")}
+                        smooth={true}
+                        duration={400}
+                        offset={-80}
+                        className="pl-7  flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
+                      >
+                        <CodeXml className="size-4 text-muted-foreground" />
+                        {item.menuName}
+                      </Link>
+                    ))}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

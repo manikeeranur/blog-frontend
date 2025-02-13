@@ -17,7 +17,7 @@ export const getErrorMessage = (error: unknown): string => {
 
 export const getHtmlBlog = async (): Promise<HtmlBlogType[] | null> => {
   try {
-    const response = await axios.get(`${BASE_URL}/htmlBlog`);
+    const response = await axios.get(`${BASE_URL}/blog`);
     return response.data;
   } catch (error: unknown) {
     console.error("Error fetching blogs:", getErrorMessage(error));

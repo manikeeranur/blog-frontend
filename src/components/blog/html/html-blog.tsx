@@ -7,7 +7,7 @@ import { SidebarInset } from "@/components/ui/sidebar";
 import { HtmlBlogType } from "@/src/services/blog.types";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import { Loader, Pencil, Trash2 } from "lucide-react";
 import CustomModal from "../../common/custom-modal";
 import HtmlBlogForm from "./htm-blog-form";
 import { deleteHtmlBlog } from "@/src/services/HtmlBlogServices";
@@ -63,7 +63,15 @@ const HtmlBlog = () => {
     setOpen(false);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="h-[calc(100vh-100px)] flex justify-center items-center">
+        <Button>
+          <Loader className="animate-spin size-[150px]" />
+          Loading ...
+        </Button>
+      </div>
+    );
   if (error) return <p>{error}</p>;
 
   return (
