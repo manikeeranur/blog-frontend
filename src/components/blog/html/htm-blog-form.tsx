@@ -90,9 +90,10 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-      <div className="mb-3">
-        <label>Content Type:</label>
-        {/* <Controller
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="mb-3">
+          <label className="font-bold">Content Type:</label>
+          {/* <Controller
           name="contentType"
           control={control}
           render={({ field }) => (
@@ -123,59 +124,101 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
             </Select>
           )}
         /> */}
-        <Controller
-          name="contentType"
-          control={control}
-          render={({ field }) => (
-            <Select
-              onValueChange={field.onChange}
-              value={field.value || ""} // ✅ Ensures value updates correctly
-            >
-              <SelectTrigger id="framework">
-                <SelectValue placeholder="Select Content Type" />
-              </SelectTrigger>
-              <SelectContent
-                className="tw-z-[1301]"
-                side="bottom"
-                align="start"
+          <Controller
+            name="contentType"
+            control={control}
+            render={({ field }) => (
+              <Select
+                onValueChange={field.onChange}
+                value={field.value || ""} // ✅ Ensures value updates correctly
               >
-                <SelectGroup>
-                  <SelectItem value="HTML">HTML</SelectItem>
-                  <SelectItem value="CSS">CSS</SelectItem>
-                  <SelectItem value="Bootstrap">Bootstrap</SelectItem>
-                  <SelectItem value="Javascript">Javascript</SelectItem>
-                  <SelectItem value="ReactJs">ReactJs</SelectItem>
-                  <SelectItem value="SQL">SQL</SelectItem>
-                  <SelectItem value="Java">Java</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          )}
-        />
+                <SelectTrigger
+                  id="framework"
+                  className="border focus:ring-0 focus:border focus:outline-none !shadow-none"
+                >
+                  <SelectValue placeholder="Select Content Type" />
+                </SelectTrigger>
+                <SelectContent
+                  className="tw-z-[1301]"
+                  side="bottom"
+                  align="start"
+                >
+                  <SelectGroup>
+                    <SelectItem
+                      className="cursor-pointer hover:bg-[#f3f3f3]"
+                      value="HTML"
+                    >
+                      HTML
+                    </SelectItem>
+                    <SelectItem
+                      className="cursor-pointer hover:bg-[#f3f3f3]"
+                      value="CSS"
+                    >
+                      CSS
+                    </SelectItem>
+                    <SelectItem
+                      className="cursor-pointer hover:bg-[#f3f3f3]"
+                      value="Bootstrap"
+                    >
+                      Bootstrap
+                    </SelectItem>
+                    <SelectItem
+                      className="cursor-pointer hover:bg-[#f3f3f3]"
+                      value="Javascript"
+                    >
+                      Javascript
+                    </SelectItem>
+                    <SelectItem
+                      className="cursor-pointer hover:bg-[#f3f3f3]"
+                      value="ReactJs"
+                    >
+                      ReactJs
+                    </SelectItem>
+                    <SelectItem
+                      className="cursor-pointer hover:bg-[#f3f3f3]"
+                      value="SQL"
+                    >
+                      SQL
+                    </SelectItem>
+                    <SelectItem
+                      className="cursor-pointer hover:bg-[#f3f3f3]"
+                      value="Java"
+                    >
+                      Java
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          />
 
-        {errors.contentType && (
-          <p className="text-red-500">{errors.contentType.message}</p>
-        )}
+          {errors.contentType && (
+            <p className="text-red-500 text-[12px]">
+              {errors.contentType.message}
+            </p>
+          )}
+        </div>
+        <div className="mb-3">
+          <label className="font-bold">Side Menu Name:</label>
+          <Controller
+            name="menuName"
+            control={control}
+            render={({ field }) => (
+              <Input
+                className="border focus-visible:ring-0 shadow-none"
+                {...field}
+              />
+            )}
+          />
+          {errors.menuName && (
+            <p className="text-red-500 text-[12px]">
+              {errors.menuName.message}
+            </p>
+          )}
+        </div>
       </div>
       <div className="mb-3">
-        <label>Side Menu Name:</label>
-        <Controller
-          name="menuName"
-          control={control}
-          render={({ field }) => (
-            <Input
-              className="border focus-visible:ring-0 shadow-none"
-              {...field}
-            />
-          )}
-        />
-        {errors.menuName && (
-          <p className="text-red-500">{errors.menuName.message}</p>
-        )}
-      </div>
-
-      <div className="mb-3">
-        <label>Heading:</label>
+        <label className="font-bold">Heading:</label>
         <Controller
           name="heading"
           control={control}
@@ -187,12 +230,12 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
           )}
         />
         {errors.heading && (
-          <p className="text-red-500">{errors.heading.message}</p>
+          <p className="text-red-500 text-[12px]">{errors.heading.message}</p>
         )}
       </div>
 
       <div className="mb-3">
-        <label>Content:</label>
+        <label className="font-bold">Content:</label>
         {/* ✅ Use Controller to properly integrate TiptapEditor */}
         <Controller
           name="content"
@@ -202,12 +245,12 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
           )}
         />
         {errors.content && (
-          <p className="text-red-500">{errors.content.message}</p>
+          <p className="text-red-500 text-[12px]">{errors.content.message}</p>
         )}
       </div>
 
       <div className="mb-3">
-        <label>Example:</label>
+        <label className="font-bold">Example:</label>
         <Controller
           name="example"
           control={control}
@@ -216,7 +259,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
           )}
         />
         {errors.example && (
-          <p className="text-red-500">{errors.example.message}</p>
+          <p className="text-red-500 text-[12px]">{errors.example.message}</p>
         )}
       </div>
 

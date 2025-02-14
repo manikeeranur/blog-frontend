@@ -28,6 +28,13 @@ import {
   Table,
   CornerDownLeftIcon,
   CodeXml,
+  Grid2x2XIcon,
+  BetweenHorizontalEnd,
+  BetweenHorizontalStart,
+  BetweenVerticalEnd,
+  BetweenVerticalStart,
+  Rows2,
+  Columns2,
 } from "lucide-react";
 
 import { EditorContent, useEditor } from "@tiptap/react";
@@ -52,269 +59,306 @@ const MenuBar = ({ editor }: any) => {
   if (!editor) return null;
 
   return (
-    <div className="tiptap-control-group flex flex-wrap items-center gap-2">
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={`editor-btn font-black ${
-          editor.isActive("heading", { level: 1 }) && "is-active"
-        }`}
-      >
-        <Heading1 />
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={`editor-btn font-extrabold ${
-          editor.isActive("heading", { level: 2 }) && "is-active"
-        }`}
-      >
-        <Heading2 />
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className={`editor-btn font-semibold ${
-          editor.isActive("heading", { level: 3 }) && "is-active"
-        }`}
-      >
-        <Heading3 />
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-        className={`editor-btn font-medium ${
-          editor.isActive("heading", { level: 4 }) && "is-active"
-        }`}
-      >
-        <Heading4 />
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-        className={`editor-btn font-normal ${
-          editor.isActive("heading", { level: 5 }) && "is-active"
-        }`}
-      >
-        <Heading5 />
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-        className={`editor-btn font-normal ${
-          editor.isActive("heading", { level: 6 }) && "is-active"
-        }`}
-      >
-        <Heading6 />
-      </button>
-
-      <button
-        type="button"
-        onClick={() =>
-          editor.chain().focus().insertContent("<p><br/></p>").run()
-        }
-        className="editor-btn"
-      >
-        <CornerDownLeftIcon />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleHighlight().run()}
-        className={`editor-btn ${
-          editor.isActive("highlight") ? "is-active" : ""
-        }`}
-      >
-        <Highlighter />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().setTextAlign("left").run()}
-        className={`editor-btn ${
-          editor.isActive({ textAlign: "left" }) ? "is-active" : ""
-        }`}
-      >
-        <AlignLeft />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().setTextAlign("center").run()}
-        className={`editor-btn ${
-          editor.isActive({ textAlign: "center" }) ? "is-active" : ""
-        }`}
-      >
-        <AlignCenter />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().setTextAlign("right").run()}
-        className={`editor-btn ${
-          editor.isActive({ textAlign: "right" }) ? "is-active" : ""
-        }`}
-      >
-        <AlignRight />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().setTextAlign("justify").run()}
-        className={`editor-btn ${
-          editor.isActive({ textAlign: "justify" }) ? "is-active" : ""
-        }`}
-      >
-        <AlignJustify />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleBold().run()}
-        disabled={!editor.can().chain().focus().toggleBold().run()}
-        className={`editor-btn ${editor.isActive("bold") && "is-active"}`}
-      >
-        <Bold />
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleItalic().run()}
-        disabled={!editor.can().chain().focus().toggleItalic().run()}
-        className={`editor-btn ${editor.isActive("italic") && "is-active"}`}
-      >
-        <Italic />
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleStrike().run()}
-        disabled={!editor.can().chain().focus().toggleStrike().run()}
-        className={`editor-btn ${editor.isActive("strike") && "is-active"}`}
-      >
-        <Strikethrough />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={`editor-btn ${editor.isActive("code") && "is-active"}`}
-      >
-        <CodeXml />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={`editor-btn ${editor.isActive("bulletList") && "is-active"}`}
-      >
-        <List />
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={`editor-btn ${
-          editor.isActive("orderedList") && "is-active"
-        }`}
-      >
-        <ListOrdered />
-      </button>
-
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        className={`editor-btn`}
-      >
-        <Minus />
-      </button>
-
-      {/* Text Color */}
-      <input
-        type="color"
-        onChange={(e) => editor.chain().focus().setColor(e.target.value).run()}
-      />
-
-      {/* Background Color */}
-      <input
-        type="color"
-        onChange={(e) => {
-          const color = e.target.value;
-          editor
-            .chain()
-            .focus()
-            .setMark("textStyle", { backgroundColor: color })
-            .run();
-        }}
-      />
-
-      <button
-        type="button"
-        onClick={() => {
-          const url = prompt("Enter the URL:");
-          if (url) {
-            editor.chain().focus().setLink({ href: url }).run();
+    <div className="tiptap-control-group ">
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 1 }).run()
           }
-        }}
-        className={`editor-btn ${editor.isActive("link") && "is-active"}`}
-      >
-        <LinkIcon />
-      </button>
-      <button
-        type="button"
-        onClick={() =>
-          editor.chain().focus().insertTable({ rows: 3, cols: 3 }).run()
-        }
-        className="editor-btn"
-      >
-        <Table />
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().addRowBefore().run()}
-        className="editor-btn !w-fit"
-      >
-        Inser Row Top
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().addRowAfter().run()}
-        className="editor-btn !w-fit"
-      >
-        Insert Row Bottom
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().deleteRow().run()}
-        className="editor-btn !w-fit"
-      >
-        Delete Row
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().addColumnBefore().run()}
-        className="editor-btn !w-fit"
-      >
-        Insert Column Left
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().addColumnAfter().run()}
-        className="editor-btn !w-fit"
-      >
-        Insert Column Right
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().deleteColumn().run()}
-        className="editor-btn !w-fit"
-      >
-        Column Remove
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().deleteTable().run()}
-        className="editor-btn !w-fit"
-      >
-        Delete Table
-      </button>
+          className={`editor-btn font-black ${
+            editor.isActive("heading", { level: 1 }) && "is-active"
+          }`}
+        >
+          <Heading1 />
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
+          className={`editor-btn font-extrabold ${
+            editor.isActive("heading", { level: 2 }) && "is-active"
+          }`}
+        >
+          <Heading2 />
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 3 }).run()
+          }
+          className={`editor-btn font-semibold ${
+            editor.isActive("heading", { level: 3 }) && "is-active"
+          }`}
+        >
+          <Heading3 />
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 4 }).run()
+          }
+          className={`editor-btn font-medium ${
+            editor.isActive("heading", { level: 4 }) && "is-active"
+          }`}
+        >
+          <Heading4 />
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 5 }).run()
+          }
+          className={`editor-btn font-normal ${
+            editor.isActive("heading", { level: 5 }) && "is-active"
+          }`}
+        >
+          <Heading5 />
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 6 }).run()
+          }
+          className={`editor-btn font-normal ${
+            editor.isActive("heading", { level: 6 }) && "is-active"
+          }`}
+        >
+          <Heading6 />
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().insertContent("<p><br/></p>").run()
+          }
+          className="editor-btn"
+        >
+          <CornerDownLeftIcon />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleHighlight().run()}
+          className={`editor-btn ${
+            editor.isActive("highlight") ? "is-active" : ""
+          }`}
+        >
+          <Highlighter />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().setTextAlign("left").run()}
+          className={`editor-btn ${
+            editor.isActive({ textAlign: "left" }) ? "is-active" : ""
+          }`}
+        >
+          <AlignLeft />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().setTextAlign("center").run()}
+          className={`editor-btn ${
+            editor.isActive({ textAlign: "center" }) ? "is-active" : ""
+          }`}
+        >
+          <AlignCenter />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().setTextAlign("right").run()}
+          className={`editor-btn ${
+            editor.isActive({ textAlign: "right" }) ? "is-active" : ""
+          }`}
+        >
+          <AlignRight />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().setTextAlign("justify").run()}
+          className={`editor-btn ${
+            editor.isActive({ textAlign: "justify" }) ? "is-active" : ""
+          }`}
+        >
+          <AlignJustify />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          disabled={!editor.can().chain().focus().toggleBold().run()}
+          className={`editor-btn ${editor.isActive("bold") && "is-active"}`}
+        >
+          <Bold />
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          disabled={!editor.can().chain().focus().toggleItalic().run()}
+          className={`editor-btn ${editor.isActive("italic") && "is-active"}`}
+        >
+          <Italic />
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleStrike().run()}
+          disabled={!editor.can().chain().focus().toggleStrike().run()}
+          className={`editor-btn ${editor.isActive("strike") && "is-active"}`}
+        >
+          <Strikethrough />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+          className={`editor-btn ${editor.isActive("code") && "is-active"}`}
+        >
+          <CodeXml />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          className={`editor-btn ${
+            editor.isActive("bulletList") && "is-active"
+          }`}
+        >
+          <List />
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+          className={`editor-btn ${
+            editor.isActive("orderedList") && "is-active"
+          }`}
+        >
+          <ListOrdered />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+          className={`editor-btn`}
+        >
+          <Minus />
+        </button>
+
+        {/* Text Color */}
+        <input
+          type="color"
+          onChange={(e) =>
+            editor.chain().focus().setColor(e.target.value).run()
+          }
+        />
+
+        {/* Background Color */}
+        <input
+          type="color"
+          onChange={(e) => {
+            const color = e.target.value;
+            editor
+              .chain()
+              .focus()
+              .setMark("textStyle", { backgroundColor: color })
+              .run();
+          }}
+        />
+
+        <button
+          type="button"
+          onClick={() => {
+            const url = prompt("Enter the URL:");
+            if (url) {
+              editor.chain().focus().setLink({ href: url }).run();
+            }
+          }}
+          className={`editor-btn ${editor.isActive("link") && "is-active"}`}
+        >
+          <LinkIcon />
+        </button>
+      </div>
+      <div className="flex flex-wrap items-center gap-2 mt-2">
+        <button
+          type="button"
+          onClick={() =>
+            editor.chain().focus().insertTable({ rows: 3, cols: 3 }).run()
+          }
+          className="editor-btn"
+        >
+          <abbr title="Create Table">
+            <Table />
+          </abbr>
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().addRowBefore().run()}
+          className="editor-btn !w-fit"
+        >
+          <abbr title="Inser Row Top">
+            <BetweenVerticalEnd />
+          </abbr>
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().addRowAfter().run()}
+          className="editor-btn !w-fit"
+        >
+          <abbr title="Inser Row Bottom">
+            <BetweenVerticalStart />
+          </abbr>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().addColumnBefore().run()}
+          className="editor-btn !w-fit"
+        >
+          <abbr title="Insert Column Left">
+            <BetweenHorizontalEnd />
+          </abbr>
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().addColumnAfter().run()}
+          className="editor-btn !w-fit"
+        >
+          <abbr title="Insert Column Right">
+            <BetweenHorizontalStart />
+          </abbr>
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().deleteRow().run()}
+          className="editor-btn !w-fit"
+        >
+          <abbr title="Delete Row">
+            <Rows2 className="text-red-500" />
+          </abbr>
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().deleteColumn().run()}
+          className="editor-btn !w-fit"
+        >
+          <abbr title="Delete Column">
+            <Columns2 className="text-red-500" />
+          </abbr>
+        </button>
+        <button
+          type="button"
+          onClick={() => editor.chain().focus().deleteTable().run()}
+          className="editor-btn !w-fit"
+        >
+          <abbr title="Delete Table">
+            <Grid2x2XIcon className="text-red-500" />
+          </abbr>
+        </button>
+      </div>
     </div>
   );
 };

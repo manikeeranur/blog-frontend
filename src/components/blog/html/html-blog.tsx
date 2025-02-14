@@ -176,7 +176,10 @@ const HtmlBlog = () => {
             </div>
           }
         >
-          Are You Sure Delete this Blog
+          Are You Sure Delete this Blog ?
+          <div className="text-red-500 mt-2">
+            {selectedObject && selectedObject?.heading}
+          </div>
         </CustomModal>
       </div>
     </SidebarInset>
