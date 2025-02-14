@@ -16,6 +16,7 @@ import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css";
 import { ThemeToggle } from "../../theme/theme-toggle";
 import "@/src/components/tiptap-editor/tiptap-editor.scss";
+import DateFormatter from "../../common/date-formatter";
 const Element = dynamic(
   () => import("react-scroll").then((mod) => mod.Element),
   { ssr: false }
@@ -93,6 +94,9 @@ const HtmlBlog = () => {
                   <h4 className="mb-3 text-foreground ">
                     <strong>{item?.heading}</strong>
                   </h4>
+                  <div className="ms-auto me-4">
+                   <DateFormatter dateString={item.updatedAt} />
+                  </div>
                   {pathName.includes("/blog") && (
                     <div className="flex gap-3">
                       <Button
