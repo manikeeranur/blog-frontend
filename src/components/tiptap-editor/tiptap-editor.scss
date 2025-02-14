@@ -33,13 +33,27 @@
 }
 .ProseMirror {
   padding: 1rem;
+
+  pre {
+    color: #abb2bf;
+    background: #282c34;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+
   ol {
     list-style-type: decimal-leading-zero;
-    margin-left: 2rem;
+    margin: 1rem 0 1.5rem;
   }
   ul {
     list-style-type: circle;
-    margin-left: 2rem;
+    margin: 1rem 0 1.5rem;
+  }
+  ol,
+  ul {
+    li {
+      margin: 0 0 0 1.5rem;
+    }
   }
 }
 table {

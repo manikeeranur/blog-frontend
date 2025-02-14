@@ -45,7 +45,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
       })
     ),
     defaultValues: {
-      contentType: "HTML",
+      contentType: "",
       menuName: "",
       heading: "",
       content: "",
@@ -58,16 +58,20 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
 
     if (selectedObject) {
       reset({
-        contentType: selectedObject.contentType || "HTML",
+        contentType: selectedObject.contentType || "",
         menuName: selectedObject.menuName || "",
         heading: selectedObject.heading || "",
         content: selectedObject.content || "",
         example: selectedObject.example || "",
       });
-      setValue("content", selectedObject.content || "");
-      setValue("example", selectedObject.example || "");
+      // setValue("content", selectedObject.content || "");
+      // setValue("example", selectedObject.example || "");
+      // setValue("contentType", selectedObject.contentType);
+      setTimeout(() => {
+        setValue("contentType", selectedObject.contentType || ""); // ✅ Ensure contentType updates after reset
+      }, 0);
     }
-  }, [selectedObject, reset, setValue]);
+  }, [selectedObject, reset]);
 
   const onSubmit = async (data: any) => {
     try {
@@ -88,7 +92,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
       <div className="mb-3">
         <label>Content Type:</label>
-        <Controller
+        {/* <Controller
           name="contentType"
           control={control}
           render={({ field }) => (
@@ -96,13 +100,10 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
               onValueChange={(value) => {
                 field.onChange(value); // ✅ Update form state
               }}
-              value={field.value || "HTML"} // ✅ Ensure default value is set
+              value={field.value} // ✅ Ensure default value is set
             >
               <SelectTrigger id="framework">
-                <SelectValue
-                  placeholder="Select Content Type"
-                  defaultValue={"HTML"}
-                />
+                <SelectValue placeholder="Select Content Type" />
               </SelectTrigger>
               <SelectContent
                 className="tw-z-[1301]"
@@ -112,14 +113,48 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
                 <SelectGroup>
                   <SelectItem value="HTML">HTML</SelectItem>
                   <SelectItem value="CSS">CSS</SelectItem>
+                  <SelectItem value="Bootstrap">Bootatrap</SelectItem>
                   <SelectItem value="Javascript">Javascript</SelectItem>
+                  <SelectItem value="ReactJs">ReactJs</SelectItem>
+                  <SelectItem value="SQL">SQL</SelectItem>
+                  <SelectItem value="Java">Java</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+        /> */}
+        <Controller
+          name="contentType"
+          control={control}
+          render={({ field }) => (
+            <Select
+              onValueChange={field.onChange}
+              value={field.value || ""} // ✅ Ensures value updates correctly
+            >
+              <SelectTrigger id="framework">
+                <SelectValue placeholder="Select Content Type" />
+              </SelectTrigger>
+              <SelectContent
+                className="tw-z-[1301]"
+                side="bottom"
+                align="start"
+              >
+                <SelectGroup>
+                  <SelectItem value="HTML">HTML</SelectItem>
+                  <SelectItem value="CSS">CSS</SelectItem>
+                  <SelectItem value="Bootstrap">Bootstrap</SelectItem>
+                  <SelectItem value="Javascript">Javascript</SelectItem>
+                  <SelectItem value="ReactJs">ReactJs</SelectItem>
+                  <SelectItem value="SQL">SQL</SelectItem>
+                  <SelectItem value="Java">Java</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
           )}
         />
+
         {errors.contentType && (
-          <p className="text-danger">{errors.contentType.message}</p>
+          <p className="text-red-500">{errors.contentType.message}</p>
         )}
       </div>
       <div className="mb-3">
@@ -135,7 +170,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
           )}
         />
         {errors.menuName && (
-          <p className="text-danger">{errors.menuName.message}</p>
+          <p className="text-red-500">{errors.menuName.message}</p>
         )}
       </div>
 
@@ -152,7 +187,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
           )}
         />
         {errors.heading && (
-          <p className="text-danger">{errors.heading.message}</p>
+          <p className="text-red-500">{errors.heading.message}</p>
         )}
       </div>
 
@@ -167,7 +202,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
           )}
         />
         {errors.content && (
-          <p className="text-danger">{errors.content.message}</p>
+          <p className="text-red-500">{errors.content.message}</p>
         )}
       </div>
 
@@ -181,7 +216,7 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
           )}
         />
         {errors.example && (
-          <p className="text-danger">{errors.example.message}</p>
+          <p className="text-red-500">{errors.example.message}</p>
         )}
       </div>
 
