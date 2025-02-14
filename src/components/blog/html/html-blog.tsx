@@ -89,8 +89,8 @@ const HtmlBlog = () => {
           blogData?.map((item: any, index: number) => (
             <Element name={item?.menuName.replace(/\s+/g, "-")} key={index}>
               <div>
-                <div className="flex items-center justify-between">
-                  <h4 className="mb-3 text-foreground">
+                <div className="flex items-center justify-between bg-background sticky top-[62px]">
+                  <h4 className="mb-3 text-foreground ">
                     <strong>{item?.heading}</strong>
                   </h4>
                   {pathName.includes("/blog") && (
