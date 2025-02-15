@@ -95,7 +95,7 @@ const HtmlBlog = () => {
                     <strong>{item?.heading}</strong>
                   </h4>
                   <div className="ms-auto me-4">
-                   <DateFormatter dateString={item.updatedAt} />
+                    <DateFormatter dateString={item.updatedAt} />
                   </div>
                   {pathName.includes("/blog") && (
                     <div className="flex gap-3">

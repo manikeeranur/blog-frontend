@@ -132,8 +132,11 @@ pre code.hljs {
     display: none !important;
   }
   .text-content ul {
-    list-style-type: circle;
+    list-style-type: initial;
     margin: 1rem 0 1.5rem;
+  }
+  .text-content ul li code {
+    color: #e06c75;
   }
 
   .text-content ol {

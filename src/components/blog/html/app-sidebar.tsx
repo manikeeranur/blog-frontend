@@ -19,6 +19,7 @@ import {
 import Image from "next/image";
 import htmlLogo from "@/src/images/skills/html.svg";
 import cssLogo from "@/src/images/skills/css.svg";
+import mainMenuLogo from "@/src/images/skills/computer-mouse.svg";
 import bootstrapLogo from "@/src/images/skills/bootstrap.svg";
 import javascriptLogo from "@/src/images/skills/javascript.svg";
 import reactJsLogo from "@/src/images/skills/reactjs.svg";
@@ -43,8 +44,14 @@ export function AppSidebar() {
     <Sidebar className="w-64 bg-background border-r border-border h-screen shadow-md">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-lg font-semibold text-foreground">
-            📌 Main Menu
+          <SidebarGroupLabel className="text-sm flex items-center gap-3 text-foreground h-auto mb-2 border-b rounded-none pb-2">
+            <Image
+              src={mainMenuLogo}
+              alt="MainMenuLogo"
+              width={45}
+              height={45}
+            />
+            Student Coder Blog
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <Accordion

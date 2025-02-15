@@ -13,12 +13,15 @@ import { AppSidebar } from "../components/blog/html/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "../components/theme/theme-toggle";
-
+import FileUploader from "../components/common/FileUploader";
+import { useState } from "react";
 const HtmlBlog = dynamic(() => import("@/src/components/blog/html/html-blog"), {
   ssr: false,
 });
 
 export default function Page() {
+  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+  console.log(imageUrl);
   const router = useRouter();
   return (
     <>
@@ -55,6 +58,7 @@ export default function Page() {
             </div>
           </header>
           <HtmlBlog />
+          {/* <FileUploader fileName="blog" setImageUrl={setImageUrl} /> */}
         </main>
       </SidebarProvider>
     </>
