@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon, LockIcon, MailIcon } from "lucide-react";
 import { getErrorMessage, loginUser } from "@/src/services/HtmlBlogServices";
+import { Label } from "@/components/ui/label";
+import loginImg from "@/src/images/skills/login.svg";
+import Image from "next/image";
 
 interface LoginCredentials {
   email: string;
@@ -54,16 +57,18 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-full max-w-xs space-y-2">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+    <div className="w-full flex justify-center items-center h-screen">
+      <div className="w-1/4 space-y-2">
+        <h5 className="mb-6">Login Blog</h5>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 w-full">
           <div>
-            <div className="relative flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring pl-2">
+            <Label>Email :</Label>
+            <div className="relative flex items-center rounded-md border pl-2">
               <MailIcon className="h-5 w-5 text-muted-foreground" />
               <Input
                 type="email"
                 placeholder="Email"
-                className="border-0 focus-visible:ring-0 shadow-none"
+                className="border-0 focus-visible:ring-0 shadow-none w-full"
                 autoComplete="off"
                 {...register("email")}
               />
@@ -74,12 +79,13 @@ export default function Login() {
           </div>
 
           <div>
-            <div className="relative flex items-center rounded-md border focus-within:ring-1 focus-within:ring-ring px-2">
+            <Label>Password :</Label>
+            <div className="relative flex items-center rounded-md border px-2 mb-2">
               <LockIcon className="h-5 w-5 text-muted-foreground" />
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
-                className="border-0 focus-visible:ring-0 shadow-none"
+                className="border-0 focus-visible:ring-0 shadow-none w-full"
                 autoComplete="off"
                 {...register("password")}
               />
