@@ -18,12 +18,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface HtmlBlogFormProps {
+interface BlogFormProps {
   selectedObject: any;
   handleClose: () => void;
 }
 
-const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
+const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
   const { fetchBlog } = useBlog();
 
   const {
@@ -268,4 +268,4 @@ const HtmlBlogForm = ({ selectedObject, handleClose }: HtmlBlogFormProps) => {
   );
 };
 
-export default HtmlBlogForm;
+export default BlogForm;

@@ -9,13 +9,13 @@ import {
 } from "@/components/ui/breadcrumb";
 import { ChevronsRight } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "../components/blog/html/app-sidebar";
+import { AppSidebar } from "../components/blog/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { ThemeToggle } from "../components/theme/theme-toggle";
 import FileUploader from "../components/common/FileUploader";
 import { useState } from "react";
-const HtmlBlog = dynamic(() => import("@/src/components/blog/html/html-blog"), {
+const Blog = dynamic(() => import("@/src/components/blog/blog"), {
   ssr: false,
 });
 
@@ -57,7 +57,7 @@ export default function Page() {
               <ThemeToggle />
             </div>
           </header>
-          <HtmlBlog />
+          <Blog />
           {/* <FileUploader fileName="blog" setImageUrl={setImageUrl} /> */}
         </main>
       </SidebarProvider>

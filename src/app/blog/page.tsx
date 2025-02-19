@@ -1,19 +1,3 @@
-// "use client";
-// import ProtectedRoute from "@/src/components/ProtectedRoute";
-// import dynamic from "next/dynamic";
-
-// const HtmlBlog = dynamic(() => import("@/src/components/blog/html/html-blog"), {
-//   ssr: false,
-// });
-
-// export default function Page() {
-//   return (
-//     <ProtectedRoute>
-//       <HtmlBlog />
-//     </ProtectedRoute>
-//   );
-// }
-
 "use client";
 import dynamic from "next/dynamic";
 import {
@@ -25,14 +9,12 @@ import {
 } from "@/components/ui/breadcrumb";
 import { ChevronsRight } from "lucide-react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { AppSidebar } from "@/src/components/blog/html/app-sidebar";
+import { AppSidebar } from "@/src/components/blog/app-sidebar";
 import { ThemeToggle } from "@/src/components/theme/theme-toggle";
 import LogoutButton from "@/src/components/LogoutButton";
 
-const HtmlBlog = dynamic(() => import("@/src/components/blog/html/html-blog"), {
+const Blog = dynamic(() => import("@/src/components/blog/blog"), {
   ssr: false,
 });
 
@@ -72,7 +54,7 @@ export default function Page() {
               <ThemeToggle />
             </div>
           </header>
-          <HtmlBlog />
+          <Blog />
         </main>
       </SidebarProvider>
     </>

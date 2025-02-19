@@ -4,25 +4,22 @@ import dynamic from "next/dynamic";
 import { useBlog } from "@/src/context/BlogContext";
 import "react-quill-new/dist/quill.snow.css";
 import { SidebarInset } from "@/components/ui/sidebar";
-import { HtmlBlogType } from "@/src/services/blog.types";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Loader, Pencil, Trash2 } from "lucide-react";
-import CustomModal from "../../common/custom-modal";
-import HtmlBlogForm from "./htm-blog-form";
+import CustomModal from "@/src/components/common/custom-modal";
+import BlogForm from "@/src/components/blog/blog-form";
 import { deleteHtmlBlog } from "@/src/services/HtmlBlogServices";
-
 import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css";
-import { ThemeToggle } from "../../theme/theme-toggle";
 import "@/src/components/tiptap-editor/tiptap-editor.scss";
-import DateFormatter from "../../common/date-formatter";
+import DateFormatter from "@/src/components/common/date-formatter";
 const Element = dynamic(
   () => import("react-scroll").then((mod) => mod.Element),
   { ssr: false }
 );
 
-const HtmlBlog = () => {
+const Blog = () => {
   const [open, setOpen] = useState(false);
   const [deleteBlog, setDeleteBlog] = useState(false);
   const pathName = usePathname();
@@ -146,10 +143,7 @@ const HtmlBlog = () => {
           setOpen={setOpen}
           handleClose={handleClose}
         >
-          <HtmlBlogForm
-            selectedObject={selectedObject}
-            handleClose={handleClose}
-          />
+          <BlogForm selectedObject={selectedObject} handleClose={handleClose} />
         </CustomModal>
 
         <CustomModal
@@ -190,4 +184,4 @@ const HtmlBlog = () => {
   );
 };
 
-export default HtmlBlog;
+export default Blog;
