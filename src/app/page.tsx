@@ -12,7 +12,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "../components/blog/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { ThemeToggle } from "../components/theme/theme-toggle";
+import { ThemeToggle } from "@/src/components/theme/theme-toggle";
 import FileUploader from "../components/common/FileUploader";
 import { useState } from "react";
 const Blog = dynamic(() => import("@/src/components/blog/blog"), {
