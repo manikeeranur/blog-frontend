@@ -7,7 +7,7 @@ import {
   SidebarGroupLabel,
 } from "@/components/ui/sidebar";
 import { useBlog } from "@/src/context/BlogContext";
-import { HtmlBlogType } from "@/src/services/blog.types";
+import { BlogType } from "@/src/services/blog.types";
 import { CodeXml } from "lucide-react";
 import { Link } from "react-scroll";
 import {
@@ -62,7 +62,7 @@ export function AppSidebar() {
             >
               {sections.map(({ name, logo }) => {
                 const sectionData = safeBlogData.filter(
-                  (item: HtmlBlogType) => item.contentType === name
+                  (item: BlogType) => item.contentType === name
                 );
 
                 if (sectionData.length === 0) return null; // Hide empty sections
@@ -83,7 +83,7 @@ export function AppSidebar() {
                       <span className="flex-1">{name}</span>
                     </AccordionTrigger>
                     <AccordionContent className="space-y-2 max-h-[52vh] overflow-y-auto small-scrollbar">
-                      {sectionData.map((item: HtmlBlogType, index: number) => (
+                      {sectionData.map((item: BlogType, index: number) => (
                         <Link
                           key={`${item.menuName}-${index}`} // Ensure uniqueness
                           to={item.menuName.replace(/\s+/g, "-")}

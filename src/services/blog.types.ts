@@ -1,4 +1,4 @@
-export interface HtmlBlogType {
+export interface BlogType {
   heading: string;
   content: string;
   example: string;

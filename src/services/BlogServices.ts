@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { HtmlBlogType, LoginDetails } from "./blog.types";
+import { BlogType, LoginDetails } from "./blog.types";
 
 const BASE_URL = "https://my-own-block-api.onrender.com";
 // const BASE_URL = "http://localhost:3001";
@@ -15,7 +15,7 @@ export const getErrorMessage = (error: unknown): string => {
   return "An unexpected error occurred.";
 };
 
-export const getHtmlBlog = async (): Promise<HtmlBlogType[] | null> => {
+export const getBlog = async (): Promise<BlogType[] | null> => {
   try {
     const response = await axios.get(`${BASE_URL}/blog`);
     return response.data;
@@ -25,21 +25,7 @@ export const getHtmlBlog = async (): Promise<HtmlBlogType[] | null> => {
   }
 };
 
-// export const postHtmlBlog = async (
-//   data: HtmlBlogType
-// ): Promise<HtmlBlogType | null> => {
-//   try {
-//     const response = await axios.post(`${BASE_URL}/htmlBlog`, data);
-//     return response.data;
-//   } catch (error: unknown) {
-//     console.error("Error posting blog:", getErrorMessage(error));
-//     return null;
-//   }
-// };
-
-export const postHtmlBlog = async (
-  data: HtmlBlogType
-): Promise<HtmlBlogType | null> => {
+export const postBlog = async (data: BlogType): Promise<BlogType | null> => {
   try {
     const response = await axios.post(`${BASE_URL}/blog`, data, {
       headers: {
@@ -56,10 +42,10 @@ export const postHtmlBlog = async (
   }
 };
 
-export const putHtmlBlog = async (
+export const putBlog = async (
   id: string,
-  data: HtmlBlogType
-): Promise<HtmlBlogType | null> => {
+  data: BlogType
+): Promise<BlogType | null> => {
   try {
     const response = await axios.put(`${BASE_URL}/blog/${id}`, data);
     return response.data;
@@ -69,7 +55,7 @@ export const putHtmlBlog = async (
   }
 };
 
-export const deleteHtmlBlog = async (id: string): Promise<boolean> => {
+export const deleteBlog = async (id: string): Promise<boolean> => {
   try {
     await axios.delete(`${BASE_URL}/blog/${id}`);
     return true;

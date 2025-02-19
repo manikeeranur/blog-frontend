@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { postHtmlBlog, putHtmlBlog } from "@/src/services/HtmlBlogServices";
+import { postBlog, putBlog } from "@/src/services/BlogServices";
 import { useBlog } from "@/src/context/BlogContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -76,9 +76,9 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
   const onSubmit = async (data: any) => {
     try {
       if (selectedObject?._id) {
-        await putHtmlBlog(selectedObject._id, data);
+        await putBlog(selectedObject._id, data);
       } else {
-        await postHtmlBlog(data);
+        await postBlog(data);
       }
       reset();
       handleClose();

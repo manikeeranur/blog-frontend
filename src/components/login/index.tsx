@@ -8,10 +8,8 @@ import * as yup from "yup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon, LockIcon, MailIcon } from "lucide-react";
-import { getErrorMessage, loginUser } from "@/src/services/HtmlBlogServices";
+import { getErrorMessage, loginUser } from "@/src/services/BlogServices";
 import { Label } from "@/components/ui/label";
-import loginImg from "@/src/images/skills/login.svg";
-import Image from "next/image";
 
 interface LoginCredentials {
   email: string;

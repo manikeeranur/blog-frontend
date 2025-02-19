@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
-import { getHtmlBlog } from "@/src/services/HtmlBlogServices";
+import { getBlog } from "@/src/services/BlogServices";
+
 export const BlogContext = createContext();
 
 export const BlogProvider = ({ children }) => {
@@ -11,7 +12,7 @@ export const BlogProvider = ({ children }) => {
   const fetchBlog = async () => {
     try {
       setLoading(true);
-      const data = await getHtmlBlog();
+      const data = await getBlog();
       setBlogData(data);
     } catch (error) {
       setError("Error fetching blog: " + error.message);
