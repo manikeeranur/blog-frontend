@@ -89,7 +89,8 @@ export function AppSidebar() {
                           to={item.menuName.replace(/\s+/g, "-")}
                           smooth
                           duration={400}
-                          offset={-80}
+                          // offset={-80}
+                          offset={-62}
                           className="pl-7 flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
                         >
                           <CodeXml className="size-4 text-muted-foreground" />
