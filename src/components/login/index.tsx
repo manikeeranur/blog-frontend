@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon, LockIcon, MailIcon } from "lucide-react";
 import { getErrorMessage, loginUser } from "@/src/services/BlogServices";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 
 interface LoginCredentials {
   email: string;
@@ -28,6 +29,7 @@ const loginSchema = yup.object().shape({
 });
 
 export default function Login() {
+  const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
@@ -48,6 +50,10 @@ export default function Login() {
     try {
       const token = await loginUser(data);
       localStorage.setItem("token", token);
+      toast({
+        className: "bg-green-600 text-[#fff] font-bold",
+        description: "Login Successfully",
+      });
       router.push("/blog");
     } catch (error: unknown) {
       setErrorMessage(getErrorMessage(error));

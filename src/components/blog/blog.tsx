@@ -100,9 +100,7 @@ const Blog = () => {
                 <h4 className="mb-3 text-foreground">
                   <strong>{item?.heading}</strong>
                 </h4>
-                <div className="ms-auto me-4">
-                  <DateFormatter dateString={item.updatedAt} />
-                </div>
+
                 {pathName.includes("/blog") && (
                   <div className="flex gap-3">
                     <Button
@@ -136,6 +134,9 @@ const Blog = () => {
                 className="mb-5 example text-content"
                 dangerouslySetInnerHTML={{ __html: item?.example }}
               />
+              {/* <small>
+                Updated Time : <DateFormatter dateString={item.updatedAt} />
+              </small> */}
               <div className="my-8">
                 <hr />
               </div>

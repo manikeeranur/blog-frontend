@@ -41,7 +41,7 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
         content: Yup.string()
           .min(10, "Content must be at least 10 characters")
           .required("Content is required"),
-        example: Yup.string().required("Example is required"),
+        example: Yup.string(),
       })
     ),
     defaultValues: {

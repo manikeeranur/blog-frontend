@@ -3,6 +3,7 @@ import { Poppins, Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { BlogProvider } from "@/src/context/BlogContext";
 import { ThemeProvider } from "../components/theme/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 // Load fonts
 const geistSans = Geist({
@@ -49,6 +50,7 @@ export default function RootLayout({
         <BlogProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
+            <Toaster />
           </ThemeProvider>
         </BlogProvider>
       </body>
