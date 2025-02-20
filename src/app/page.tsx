@@ -30,9 +30,9 @@ export default function Page() {
         <main className="relative w-full">
           {/* <SidebarTrigger className="absolute top-5 left-4 z-10" /> */}
           <header className="flex h-16 shrink-0 items-center gap-2 px-4 sticky top-0 left-0 bg-background z-10">
-            <SidebarTrigger className="mt-1" />
+            <SidebarTrigger />
 
-            <Breadcrumb className="py-1.5 px-3 rounded-lg">
+            <Breadcrumb className="py-1.5 px-3 rounded-lg hidden md:block">
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink href="#">Home</BreadcrumbLink>
@@ -41,13 +41,13 @@ export default function Page() {
                   <ChevronsRight />
                 </BreadcrumbSeparator>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="#/components">Blog</BreadcrumbLink>
+                  <BreadcrumbLink href="#">Blog</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator>
                   <ChevronsRight />
                 </BreadcrumbSeparator>
                 <BreadcrumbItem>
-                  <BreadcrumbLink>HTML</BreadcrumbLink>
+                  <BreadcrumbLink href="#">Programming</BreadcrumbLink>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

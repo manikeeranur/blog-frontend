@@ -249,7 +249,7 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
         )}
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3 hidden">
         <label className="font-bold">Example:</label>
         <Controller
           name="example"
