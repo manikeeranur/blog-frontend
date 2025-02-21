@@ -91,7 +91,7 @@ export function AppSidebar() {
                           duration={400}
                           // offset={-80}
                           offset={-62}
-                          className="pl-7 flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
+                          className="text-[12px] font-normal pl-7 flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
                         >
                           <CodeXml className="size-4 text-muted-foreground" />
                           {item.menuName}
