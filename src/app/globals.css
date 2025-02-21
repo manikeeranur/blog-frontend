@@ -143,6 +143,7 @@ pre code.hljs {
   }
   .text-content ul li code {
     color: #e06c75;
+    font-weight: bold;
   }
 
   .text-content ol {
@@ -153,6 +154,7 @@ pre code.hljs {
   .text-content ul li,
   .text-content ol li {
     margin: 0 0 0 1.5rem;
+    font-size: 15px !important;
   }
   .tiptap-control-group {
     position: sticky;
@@ -171,6 +173,9 @@ pre code.hljs {
     margin: 10px;
     border-radius: 10px;
     cursor: pointer;
+  }
+  code {
+    font-size: 15px !important;
   }
 }
 
@@ -208,7 +213,7 @@ pre code.hljs {
     @apply text-base font-semibold;
   }
   p {
-    @apply text-base  leading-relaxed mb-1;
+    @apply text-[15px]  leading-relaxed mb-1;
   }
   a {
     @apply font-medium;
