@@ -49,8 +49,8 @@
   .dark,
   [data-bs-theme="dark"] {
     --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --foreground: 0 0% 98%;
+    /* --foreground: 0 0% 98%; */
+    --foreground: 249 100% 83%;
     --content: #fafafaab;
     --card: 240 10% 3.9%;
     --white: #000;

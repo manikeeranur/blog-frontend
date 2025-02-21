@@ -97,7 +97,7 @@ const Blog = () => {
           <Element name={item?.menuName.replace(/\s+/g, "-")} key={index}>
             <div>
               <div className="flex items-center justify-between bg-background sticky top-[62px]">
-                <h4 className="mb-3 text-foreground">
+                <h4 className="mb-3 text-foreground font-bold tracking-wide glow-effect">
                   <strong>{item?.heading}</strong>
                 </h4>
 
