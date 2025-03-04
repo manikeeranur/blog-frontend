@@ -92,6 +92,12 @@ export function AppSidebar() {
                           // offset={-80}
                           offset={-62}
                           className="text-[12px] font-normal pl-7 flex items-center gap-2 p-2 text-muted-foreground hover:text-primary hover:bg-accent rounded-md transition cursor-pointer"
+                          onClick={() =>
+                            localStorage.setItem(
+                              "jsBlogIndex",
+                              index.toString()
+                            )
+                          }
                         >
                           <CodeXml className="size-4 text-muted-foreground" />
                           {item.menuName}

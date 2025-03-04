@@ -33,6 +33,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  localStorage.removeItem("theme");
 
   const {
     register,
@@ -61,8 +62,8 @@ export default function Login() {
   };
 
   return (
-    <div className="w-full flex justify-center items-center h-screen">
-      <div className="w-1/4 space-y-2">
+    <div className="w-full flex justify-center items-center md:h-screen h-[calc(100vh-64px)]">
+      <div className="w-[80%] md:w-1/4 space-y-2">
         <h5 className="mb-6">Login Blog</h5>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 w-full">
           <div>

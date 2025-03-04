@@ -50,7 +50,7 @@
   [data-bs-theme="dark"] {
     --background: 240 10% 3.9%;
     /* --foreground: 0 0% 98%; */
-    --foreground: 249 100% 83%;
+    --foreground: #914bf1;
     --content: #fafafaab;
     --card: 240 10% 3.9%;
     --white: #000;
@@ -94,7 +94,7 @@
 body {
   font-family: var(--font-poppins);
   background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+  color: var(--foreground);
 }
 .content {
   color: var(--content);
@@ -110,6 +110,9 @@ body {
 }
 .blog-header {
   background: var(--content);
+}
+.hljs {
+  margin: 1rem 0;
 }
 pre code.hljs {
   display: block;
@@ -140,6 +143,7 @@ pre code.hljs {
   .text-content ul {
     list-style-type: initial;
     margin: 1rem 0 1.5rem;
+    padding: 0 1rem;
   }
   .text-content ul li code {
     color: #e06c75;
@@ -210,10 +214,10 @@ pre code.hljs {
     @apply text-lg font-semibold;
   }
   h6 {
-    @apply text-base font-semibold;
+    @apply text-base font-semibold mb-[0.75rem];
   }
   p {
-    @apply text-[15px]  leading-relaxed mb-1;
+    @apply text-[15px] leading-relaxed mb-1;
   }
   a {
     @apply font-medium;
