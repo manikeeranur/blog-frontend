@@ -1,4 +1,5 @@
 "use client";
+import ProtectedRoute from "@/src/components/ProtectedRoute";
 import dynamic from "next/dynamic";
 const Blog = dynamic(() => import("@/src/components/blog/blog"), {
   ssr: false,
@@ -7,7 +8,9 @@ const Blog = dynamic(() => import("@/src/components/blog/blog"), {
 export default function Page() {
   return (
     <>
-      <Blog />
+      <ProtectedRoute>
+        <Blog />
+      </ProtectedRoute>
     </>
   );
 }
