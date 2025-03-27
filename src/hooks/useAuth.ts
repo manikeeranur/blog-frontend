@@ -17,7 +17,7 @@
 //       } else {
 //         try {
 //           const { data } = await axios.get(
-//             "https://my-own-block-api.onrender.com/api/auth/checkAuth",
+//             "https://my-own-block-api-v8ol.onrender.com/api/auth/checkAuth",
 //             {
 //               method: "POST",
 //               headers: {
@@ -65,7 +65,7 @@ export function useAuth() {
 
       try {
         const { data } = await axios.post(
-          "https://my-own-block-api.onrender.com/api/auth/checkAuth",
+          "https://my-own-block-api-v8ol.onrender.com/api/auth/checkAuth",
           {},
           {
             headers: {

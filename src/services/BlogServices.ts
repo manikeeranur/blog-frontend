@@ -2,7 +2,7 @@
 import axios from "axios";
 import { BlogType, LoginDetails } from "./blog.types";
 
-const BASE_URL = "https://my-own-block-api.onrender.com";
+const BASE_URL = "https://my-own-block-api-v8ol.onrender.com";
 // const BASE_URL = "http://localhost:3001";
 
 export const getErrorMessage = (error: unknown): string => {
