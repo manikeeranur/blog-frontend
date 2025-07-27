@@ -24,6 +24,15 @@ export const getBlog = async (): Promise<BlogType[] | null> => {
     return null;
   }
 };
+export const getBlogById = async (id: any): Promise<BlogType[] | null> => {
+  try {
+    const response = await axios.get(`${BASE_URL}/blog/${id}`);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error fetching blogs By Id:", getErrorMessage(error));
+    return null;
+  }
+};
 
 export const postBlog = async (data: BlogType): Promise<BlogType | null> => {
   try {

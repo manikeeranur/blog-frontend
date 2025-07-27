@@ -9,9 +9,9 @@
 .tiptap-editor {
   .tiptap-control-group {
     .editor-btn {
-      border: 1px solid #e0e0e0;
-      min-width: 40px !important;
-      height: 40px;
+      // border: 1px solid #e0e0e0;
+      min-width: 35px !important;
+      height: 35px;
       padding: 5px;
       border-radius: 4px;
       &.is-active {
@@ -21,12 +21,12 @@
     }
   }
   .ProseMirror {
-    border: 1px solid #e0e0e0;
+    // border: 1px solid #e0e0e0;
     border-radius: 4px;
     padding: 1rem;
     margin: 4px 0;
     &.ProseMirror-focused {
-      border: 1px solid #e0e0e0 !important;
+      // border: 1px solid #e0e0e0 !important;
       outline: none !important;
     }
   }
@@ -68,5 +68,30 @@ table {
     border: 1px solid #e0e0e0;
     padding: 5px 10px;
     min-width: 100px;
+  }
+}
+
+code[data-highlighted="yes"] {
+  position: relative;
+  padding-top: 2rem !important; // create space for the dots
+  border-radius: 8px !important;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    width: 48px; // enough for 3 circles + 2 gaps
+    height: 12px;
+
+    background-image: radial-gradient(circle, #ff5f56 5px, transparent 6px),
+      // red
+      radial-gradient(circle, #ffbd2e 5px, transparent 6px),
+      // yellow
+      radial-gradient(circle, #27c93f 5px, transparent 6px); // green
+
+    background-repeat: no-repeat;
+    background-position: 0 0, 16px 0, 32px 0; // each dot spaced with 4px gap
+    background-size: 12px 12px;
+    z-index: 10;
   }
 }

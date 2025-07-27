@@ -51,6 +51,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 import css from "highlight.js/lib/languages/css";
 import { createLowlight } from "lowlight";
+import HeadingSelector from "./HeadingSelector";
 
 const lowlight = createLowlight();
 lowlight.register({ javascript, typescript, html, css });
@@ -59,9 +60,9 @@ const MenuBar = ({ editor }: any) => {
   if (!editor) return null;
 
   return (
-    <div className="tiptap-control-group ">
+    <div className="tiptap-control-group !bg-[#F4F4F4] !rounded-2 p-2 m-2">
       <div className="flex flex-wrap items-center gap-2">
-        <button
+        {/* <button
           type="button"
           onClick={() =>
             editor.chain().focus().toggleHeading({ level: 1 }).run()
@@ -126,8 +127,9 @@ const MenuBar = ({ editor }: any) => {
           }`}
         >
           <Heading6 />
-        </button>
+        </button> */}
 
+        <HeadingSelector editor={editor} />
         <button
           type="button"
           onClick={() =>
@@ -178,7 +180,7 @@ const MenuBar = ({ editor }: any) => {
           <AlignRight />
         </button>
 
-        <button
+        {/* <button
           type="button"
           onClick={() => editor.chain().focus().setTextAlign("justify").run()}
           className={`editor-btn ${
@@ -186,7 +188,7 @@ const MenuBar = ({ editor }: any) => {
           }`}
         >
           <AlignJustify />
-        </button>
+        </button> */}
 
         <button
           type="button"
@@ -240,13 +242,13 @@ const MenuBar = ({ editor }: any) => {
           <ListOrdered />
         </button>
 
-        <button
+        {/* <button
           type="button"
           onClick={() => editor.chain().focus().setHorizontalRule().run()}
           className={`editor-btn`}
         >
           <Minus />
-        </button>
+        </button> */}
 
         {/* Text Color */}
         <input
@@ -257,7 +259,7 @@ const MenuBar = ({ editor }: any) => {
         />
 
         {/* Background Color */}
-        <input
+        {/* <input
           type="color"
           onChange={(e) => {
             const color = e.target.value;
@@ -267,7 +269,7 @@ const MenuBar = ({ editor }: any) => {
               .setMark("textStyle", { backgroundColor: color })
               .run();
           }}
-        />
+        /> */}
 
         <button
           type="button"
@@ -281,8 +283,7 @@ const MenuBar = ({ editor }: any) => {
         >
           <LinkIcon />
         </button>
-      </div>
-      <div className="flex flex-wrap items-center gap-2 mt-2">
+
         <button
           type="button"
           onClick={() =>
@@ -408,9 +409,9 @@ const TiptapEditor = ({ value, onChange }: any) => {
   }, [value, editor]);
 
   return (
-    <div className="tiptap-editor">
+    <div className="tiptap-editor border rounded-2">
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} className="h-[250px] overflow-auto"/>
     </div>
   );
 };

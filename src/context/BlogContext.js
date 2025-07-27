@@ -8,6 +8,7 @@ export const BlogProvider = ({ children }) => {
   const [blogData, setBlogData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedObject, setSelectedObject] = useState(null);
 
   const fetchBlog = async () => {
     try {
@@ -27,7 +28,16 @@ export const BlogProvider = ({ children }) => {
   }, []);
 
   return (
-    <BlogContext.Provider value={{ blogData, loading, error, fetchBlog }}>
+    <BlogContext.Provider
+      value={{
+        blogData,
+        loading,
+        error,
+        fetchBlog,
+        selectedObject,
+        setSelectedObject,
+      }}
+    >
       {children}
     </BlogContext.Provider>
   );

@@ -58,6 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathName = usePathname();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -68,8 +69,23 @@ export default function RootLayout({
             {pathName !== "/login" ? (
               <>
                 <SidebarProvider>
-                  <AppSidebar />
-                  <main className="relative w-full">
+                  {pathName !== "/file" && pathName !== "/add-blog" ? (
+                    <AppSidebar />
+                  ) : (
+                    ""
+                  )}
+
+                  <main
+                    // className={`relative w-full ${
+                    //   (pathName === "/file" || pathName === "/add-blog") &&
+                    //   "container"
+                    // }`}
+                    className={`relative w-full ${
+                      pathName == "/file" || pathName == "/add-blog"
+                        ? "container"
+                        : ""
+                    }`}
+                  >
                     <header className="flex h-16 shrink-0 items-center gap-2 px-4 sticky top-0 left-0 bg-background z-10">
                       <SidebarTrigger />
 

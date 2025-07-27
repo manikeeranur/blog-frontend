@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { postBlog, putBlog } from "@/src/services/BlogServices";
+import { getBlogById, postBlog, putBlog } from "@/src/services/BlogServices";
 import { useBlog } from "@/src/context/BlogContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,14 +17,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface BlogFormProps {
-  selectedObject: any;
-  handleClose: () => void;
+  selectedObject?: any;
+  handleClose?: any;
 }
 
 const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
-  const { fetchBlog } = useBlog();
+  const searchParams = useSearchParams();
+  const parems_id = searchParams.get("id");
+  const router = useRouter();
+  const { fetchBlog, setSelectedObject } = useBlog();
 
   const {
     control,
@@ -53,25 +57,37 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
     },
   });
 
-  useEffect(() => {
-    console.log("Selected Object:", selectedObject);
-
-    if (selectedObject) {
-      reset({
-        contentType: selectedObject.contentType || "",
-        menuName: selectedObject.menuName || "",
-        heading: selectedObject.heading || "",
-        content: selectedObject.content || "",
-        example: selectedObject.example || "",
-      });
-      // setValue("content", selectedObject.content || "");
-      // setValue("example", selectedObject.example || "");
-      // setValue("contentType", selectedObject.contentType);
-      setTimeout(() => {
-        setValue("contentType", selectedObject.contentType || ""); // ✅ Ensure contentType updates after reset
-      }, 0);
+  const getEditedBlogDetails = async () => {
+    try {
+      const res = await getBlogById(parems_id);
+      console.log("res_id", res);
+      setSelectedObject(res);
+    } catch (error: any) {
+      console.log(error.message);
     }
-  }, [selectedObject, reset]);
+  };
+
+  useEffect(() => {
+    const fetchAndSetBlog = async () => {
+      if (parems_id) {
+        try {
+          const res: any = await getBlogById(parems_id);
+          setSelectedObject(res); // update context
+          reset({
+            contentType: res.contentType || "",
+            menuName: res.menuName || "",
+            heading: res.heading || "",
+            content: res.content || "",
+            example: res.example || "",
+          });
+        } catch (error: any) {
+          console.log(error.message);
+        }
+      }
+    };
+
+    fetchAndSetBlog();
+  }, [parems_id, reset, setSelectedObject]);
 
   const onSubmit = async (data: any) => {
     try {
@@ -81,7 +97,8 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
         await postBlog(data);
       }
       reset();
-      handleClose();
+      // handleClose();
+      router.push("/blog");
       fetchBlog();
     } catch (error) {
       console.error("Error submitting data", error);
@@ -89,7 +106,7 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full !p-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="mb-3">
           <label className="font-bold">Content Type:</label>
@@ -262,7 +279,6 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
           <p className="text-red-500 text-[12px]">{errors.example.message}</p>
         )}
       </div>
-
       <Button type="submit">{selectedObject ? "Update" : "Add"}</Button>
     </form>
   );
