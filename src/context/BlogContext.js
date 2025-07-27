@@ -9,6 +9,7 @@ export const BlogProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedObject, setSelectedObject] = useState(null);
+  const [searchedBlogData, setSearchedBlogData] = useState([]);
 
   const fetchBlog = async () => {
     try {
@@ -36,6 +37,8 @@ export const BlogProvider = ({ children }) => {
         fetchBlog,
         selectedObject,
         setSelectedObject,
+        searchedBlogData,
+        setSearchedBlogData,
       }}
     >
       {children}

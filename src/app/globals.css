@@ -112,7 +112,8 @@ body {
   background: var(--content);
 }
 .hljs {
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
+  margin: 0;
 }
 pre code.hljs {
   display: block;
@@ -143,7 +144,8 @@ pre code.hljs {
   .text-content ul {
     list-style-type: initial;
     margin: 1rem 0 1.5rem;
-    padding: 0 1rem;
+    /* padding: 0 1rem; */
+    padding: 0;
   }
   .text-content ul li code {
     color: #e06c75;

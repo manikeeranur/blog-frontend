@@ -1,14 +1,17 @@
 "use client";
 import dynamic from "next/dynamic";
-const Blog = dynamic(() => import("@/src/components/blog/blog"), {
-  ssr: false,
-});
+
+const BlogDetails = dynamic(
+  () => import("@/src/components/blog/blog-details/index"),
+  {
+    ssr: false,
+  }
+);
 
 export default function Page() {
   return (
     <>
-      <Blog />
+      <BlogDetails />
     </>
   );
 }
-    

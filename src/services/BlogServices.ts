@@ -82,3 +82,31 @@ export const loginUser = async (data: LoginDetails): Promise<string> => {
     throw new Error(getErrorMessage(error));
   }
 };
+
+export const getBlogByContentType = async (type: any) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/blog/${type}`);
+    return response.data;
+  } catch (error: unknown) {
+    console.error("Error fetching HTML blogs:", getErrorMessage(error));
+    return null;
+  }
+};
+
+export const SearchBlog = async (contentType: string, search: string = "") => {
+  try {
+    const response = await axios.get(`${BASE_URL}/blog/search`, {
+      params: {
+        contentType,
+        search,
+      },
+    });
+    return response.data;
+  } catch (error: unknown) {
+    console.error(
+      "Error fetching blogs by content type:",
+      getErrorMessage(error)
+    );
+    return null;
+  }
+};
