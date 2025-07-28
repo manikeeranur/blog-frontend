@@ -21,46 +21,95 @@ const BlogDetails = () => {
     );
   }, [blogType]);
 
+  // useEffect(() => {
+  //   if (!contentRef.current) return;
+
+  //   const highlightCode = () => {
+  //     document.querySelectorAll("pre code").forEach((block) => {
+  //       if (!block.classList.contains("hljs")) {
+  //         hljs.highlightElement(block as HTMLElement);
+  //       }
+  //     });
+
+  //     document.querySelectorAll("pre").forEach((pre) => {
+  //       if (pre.querySelector(".copy-btn")) return;
+  //       const btn = document.createElement("button");
+  //       btn.innerText = "Copy";
+  //       btn.className =
+  //         "copy-btn absolute top-2 right-2 !bg-[#fff] !text-black text-xs px-2 py-1 rounded z-10 hover:bg-gray-800 transition";
+  //       btn.onclick = () => {
+  //         const code = pre.querySelector("code")?.innerText || "";
+  //         navigator.clipboard.writeText(code);
+  //         btn.innerText = "Copied!";
+  //         setTimeout(() => (btn.innerText = "Copy"), 1000);
+  //       };
+  //       pre.style.position = "relative";
+  //       pre.appendChild(btn);
+  //     });
+  //   };
+
+  //   requestIdleCallback(highlightCode);
+
+  //   const observer = new MutationObserver(() => {
+  //     requestIdleCallback(highlightCode);
+  //   });
+
+  //   observer.observe(contentRef.current, { childList: true, subtree: true });
+
+  //   return () => observer.disconnect();
+  // }, [blogs]);
+
   useEffect(() => {
     if (!contentRef.current) return;
 
     const highlightCode = () => {
-      document.querySelectorAll("pre code").forEach((block) => {
-        if (!block.classList.contains("hljs")) {
-          hljs.highlightElement(block as HTMLElement);
-        }
+      // Only process elements that haven't been highlighted yet
+      document.querySelectorAll("pre code:not(.hljs)").forEach((block) => {
+        hljs.highlightElement(block as HTMLElement);
       });
 
-      document.querySelectorAll("pre").forEach((pre) => {
-        if (pre.querySelector(".copy-btn")) return;
-        const btn = document.createElement("button");
-        btn.innerText = "Copy";
-        btn.className =
-          "copy-btn absolute top-2 right-2 !bg-[#fff] !text-black text-xs px-2 py-1 rounded z-10 hover:bg-gray-800 transition";
-        btn.onclick = () => {
-          const code = pre.querySelector("code")?.innerText || "";
-          navigator.clipboard.writeText(code);
-          btn.innerText = "Copied!";
-          setTimeout(() => (btn.innerText = "Copy"), 1000);
-        };
-        pre.style.position = "relative";
-        pre.appendChild(btn);
-      });
+      // Only add buttons to pre elements that don't have them
+      document
+        .querySelectorAll("pre:not(.has-copy-btn)")
+        .forEach((pre: any) => {
+          const btn = document.createElement("button");
+          btn.innerText = "Copy";
+          btn.className =
+            "copy-btn absolute top-2 right-2 !bg-[#fff] !text-black text-xs px-2 py-1 rounded z-10 hover:bg-gray-800 transition";
+          btn.onclick = () => {
+            const code = pre.querySelector("code")?.innerText || "";
+            navigator.clipboard.writeText(code);
+            btn.innerText = "Copied!";
+            setTimeout(() => (btn.innerText = "Copy"), 1000);
+          };
+          pre.style.position = "relative";
+          pre.classList.add("has-copy-btn"); // Mark as processed
+          pre.appendChild(btn);
+        });
     };
 
-    requestIdleCallback(highlightCode);
+    // Use requestAnimationFrame instead of requestIdleCallback for better timing
+    const rafId = requestAnimationFrame(highlightCode);
 
-    const observer = new MutationObserver(() => {
-      requestIdleCallback(highlightCode);
+    const observer = new MutationObserver((mutations) => {
+      // Only run if the mutations include added nodes
+      if (mutations.some((m) => m.addedNodes.length > 0)) {
+        requestAnimationFrame(highlightCode);
+      }
     });
 
-    observer.observe(contentRef.current, { childList: true, subtree: true });
+    observer.observe(contentRef.current, {
+      childList: true,
+      subtree: true,
+    });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(rafId);
+    };
   }, [blogs]);
-
   return (
-    <section className="py-4 lg:w-[70%] lg:mx-auto" ref={contentRef}>
+    <section className="p-4 lg:w-[80%] lg:mx-auto" ref={contentRef}>
       <div className="columns-1 md:columns-2 gap-4 space-y-4">
         {(searchedBlogData?.length > 0 ? searchedBlogData : blogs)?.map(
           (blog: any, index: number) => (

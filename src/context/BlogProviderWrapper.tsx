@@ -15,10 +15,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { ChevronsRight } from "lucide-react";
 import { AppSidebar } from "@/src/components/blog/app-sidebar";
-
-const SearchBox = dynamic(() => import("@/src/components/blog/search-box"), {
-  ssr: false,
-});
+import Navbar from "@/src/components/navbar";
 
 export const BlogProviderWrapper = ({
   children,
@@ -28,7 +25,9 @@ export const BlogProviderWrapper = ({
   const pathName = usePathname();
 
   const showSidebar = pathName === "/add-blog" || pathName === "/blog";
-
+  const Navbar = dynamic(() => import("@/src/components/navbar"), {
+    ssr: false,
+  });
   return (
     <BlogProvider>
       {pathName !== "/login" ? (
@@ -36,10 +35,14 @@ export const BlogProviderWrapper = ({
           {showSidebar && <AppSidebar />}
 
           <main className={`w-full ${!showSidebar && "bg-[#f4f4f4]"}`}>
-            <header className="sticky top-0 left-0 bg-background z-[100]">
-              <div className="flex h-16 shrink-0 items-center gap-2 px-4">
-                {showSidebar && <SidebarTrigger />}
+            <div className="!sticky top-0 left-0 z-[100]">
+              <Suspense fallback={<div>Loading navbar...</div>}>
+                <Navbar showSidebar={showSidebar} />
+              </Suspense>
+            </div>
 
+            {/* <header className="sticky top-0 left-0 bg-background z-[100]">
+              <div className="flex h-16 shrink-0 items-center gap-2 px-4">
                 <Breadcrumb className="py-1.5 px-3 rounded-lg hidden md:block">
                   <BreadcrumbList>
                     <BreadcrumbItem>
@@ -70,7 +73,7 @@ export const BlogProviderWrapper = ({
                   <ThemeToggle />
                 </div>
               </div>
-            </header>
+            </header> */}
             {children}
           </main>
         </SidebarProvider>
