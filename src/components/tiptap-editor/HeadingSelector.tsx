@@ -54,6 +54,7 @@ const HeadingSelector = ({ editor }: any) => {
 
   return (
     <Select
+      value=""
       onValueChange={(value) => {
         if (!editor) return;
 
@@ -68,7 +69,9 @@ const HeadingSelector = ({ editor }: any) => {
         }
       }}
     >
-      <SelectTrigger className="w-[140px] !bg-[#fff] !outline-none">Heading</SelectTrigger>
+      <SelectTrigger className="w-[140px] !bg-[#fff] !outline-none">
+        Heading
+      </SelectTrigger>
       <SelectContent>
         {headingOptions?.map((data: any, index: any) => (
           <SelectItem key={index} value={data?.value}>

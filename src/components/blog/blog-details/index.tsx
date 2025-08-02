@@ -109,7 +109,12 @@ const BlogDetails = () => {
     };
   }, [blogs]);
   return (
-    <section className="p-4 lg:w-[80%] lg:mx-auto" ref={contentRef}>
+    <section
+      className={`p-4 lg:w-[80%] lg:mx-auto ${
+        blogType === "fei" && "ProseMirror interview"
+      }`}
+      ref={contentRef}
+    >
       <div
         className={`columns-1 gap-4 space-y-4 ${
           searchedBlogData?.length === 1 ? "md:columns-1" : "md:columns-2"
@@ -119,7 +124,7 @@ const BlogDetails = () => {
           (blog: any, index: number) => (
             <div
               key={blog._id || index}
-              className="!break-inside-avoid p-4 bg-[#fff] rounded-2xl"
+              className={`!break-inside-avoid p-4 bg-[#fff] rounded-2xl `}
             >
               <h4 className="text-xl font-bold text-foreground tracking-wide glow-effect mb-4">
                 {index + 1}. {blog?.heading}

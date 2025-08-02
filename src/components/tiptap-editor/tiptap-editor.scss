@@ -95,3 +95,15 @@ code[data-highlighted="yes"] {
     z-index: 10;
   }
 }
+
+.ProseMirror.interview {
+  pre {
+    padding: 0 !important;
+  }
+  ol {
+    li {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+}

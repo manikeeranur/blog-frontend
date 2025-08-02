@@ -20,10 +20,19 @@ const SearchBox = () => {
       }
 
       try {
+        // const res = await SearchBlog(
+        //   blogType === "js" ? "javascript" : blogType,
+        //   query.trim()
+        // );
         const res = await SearchBlog(
-          blogType === "js" ? "javascript" : blogType,
+          blogType === "js"
+            ? "javascript"
+            : blogType === "fei"
+            ? "FE_Interview"
+            : blogType,
           query.trim()
         );
+
         setSearchedBlogData(res);
       } catch (err) {
         console.error("Search failed:", err);

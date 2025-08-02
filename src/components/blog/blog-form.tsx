@@ -99,6 +99,7 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
       reset();
       // handleClose();
       router.push("/blog");
+      setSelectedObject(null);
       fetchBlog();
     } catch (error) {
       console.error("Error submitting data", error);
@@ -205,9 +206,9 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
                     </SelectItem>
                     <SelectItem
                       className="cursor-pointer hover:bg-[#f3f3f3]"
-                      value="Interview"
+                      value="FE_Interview"
                     >
-                      Interview Questions
+                      Frontend Interview
                     </SelectItem>
                   </SelectGroup>
                 </SelectContent>
