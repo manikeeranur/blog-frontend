@@ -203,6 +203,12 @@ const BlogForm = ({ selectedObject, handleClose }: BlogFormProps) => {
                     >
                       Java
                     </SelectItem>
+                    <SelectItem
+                      className="cursor-pointer hover:bg-[#f3f3f3]"
+                      value="Interview"
+                    >
+                      Interview Questions
+                    </SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

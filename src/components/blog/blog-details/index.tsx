@@ -110,7 +110,11 @@ const BlogDetails = () => {
   }, [blogs]);
   return (
     <section className="p-4 lg:w-[80%] lg:mx-auto" ref={contentRef}>
-      <div className="columns-1 md:columns-2 gap-4 space-y-4">
+      <div
+        className={`columns-1 gap-4 space-y-4 ${
+          searchedBlogData?.length === 1 ? "md:columns-1" : "md:columns-2"
+        }`}
+      >
         {(searchedBlogData?.length > 0 ? searchedBlogData : blogs)?.map(
           (blog: any, index: number) => (
             <div

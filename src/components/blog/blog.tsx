@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
@@ -104,7 +103,7 @@ const Blog: React.FC = () => {
       <div id="html-blog" className="tiptap p-4 md:p-8" ref={contentRef}>
         {pathName.includes("/blog") && (
           <Button
-            onClick={() => setOpen(true)}
+            onClick={() => router.push("/add-blog")}
             className="mb-5 bg-foreground text-background"
           >
             Add Blog

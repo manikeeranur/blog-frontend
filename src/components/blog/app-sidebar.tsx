@@ -34,6 +34,7 @@ const sections = [
   { name: "ReactJs", logo: reactJsLogo },
   { name: "SQL", logo: sqlLogo },
   { name: "Java", logo: JavaLogo },
+  { name: "Interview", logo: reactJsLogo },
 ];
 
 export function AppSidebar() {
