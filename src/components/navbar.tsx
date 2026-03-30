@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import clsx from "clsx";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -12,12 +11,10 @@ import Image from "next/image";
 import mainMenuLogo from "@/src/images/skills/computer-mouse.svg";
 import dynamic from "next/dynamic";
 
-// Dynamic import
 const SearchBox = dynamic(() => import("@/src/components/blog/search-box"), {
   ssr: false,
 });
 
-// ✅ Full nav items
 const allNavItems = [
   { label: "HTML", type: "html" },
   { label: "CSS", type: "css" },
@@ -28,13 +25,8 @@ const allNavItems = [
 
 const Navbar = ({ showSidebar }: { showSidebar?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const currentType = searchParams.get("type") || "html";
+  const { blogData, currentType, setCurrentType } = useBlog();
 
-  const { blogData } = useBlog();
-
-  // ✅ Extract types from blogData contentType (converted to lowercase and matched to navItem type)
   const visibleTypes = (blogData || [])
     .map((item: any) => item.contentType?.toLowerCase())
     .map((type: string) => {
@@ -44,97 +36,106 @@ const Navbar = ({ showSidebar }: { showSidebar?: boolean }) => {
     })
     .filter(Boolean);
 
-  // ✅ Filter only navItems that match available types
   const navItems = allNavItems.filter((item) =>
     visibleTypes.includes(item.type)
   );
 
   const handleRoute = (type: string) => {
     setIsOpen(false);
-    router.push(`/?type=${type}`);
+    setCurrentType(type);
   };
 
   return (
-    <nav className="border-b bg-background bg-gradient-to-r from-[#d8f4b0b0] to-[#fff]">
+    <nav className="border-b bg-background/80 backdrop-blur-md border-border/60">
       <div
-        className={`mx-auto px-4 sm:px-6 lg:px-8 ${
-          !showSidebar && "lg:w-[80%] lg:mx-auto"
+        className={`mx-auto px-4 sm:px-6 ${
+          !showSidebar ? "lg:w-[80%] lg:mx-auto" : "lg:px-8"
         }`}
       >
-        <div className="grid grid-cols-2 gap-4 justify-between h-16 items-center">
-          {/* Logo Section */}
-          <div className="flex-1 flex items-center gap-3">
+        <div className="flex items-center justify-between h-16 gap-4">
+          {/* Logo */}
+          <div className="flex items-center gap-2.5 shrink-0">
             {showSidebar && <SidebarTrigger />}
-            <Image
-              src={mainMenuLogo}
-              alt="MainMenuLogo"
-              width={45}
-              height={45}
-            />
-            <small className="text-sm">Student Coder Tech</small>
+            <Image src={mainMenuLogo} alt="logo" width={38} height={38} />
+            <span className="text-sm font-semibold tracking-tight hidden sm:block">
+              Student Coder Tech
+            </span>
           </div>
 
-          <div className="flex-1">
-            {/* Desktop Nav */}
-            <div className="hidden md:flex md:items-center space-x-6">
-              {!showSidebar && (
-                <Suspense fallback={<div>Loading search...</div>}>
-                  <div className="md:flex-1">
-                    <SearchBox />
-                  </div>
-                </Suspense>
-              )}
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-2 flex-1 justify-end">
+            {!showSidebar && (
+              <Suspense fallback={null}>
+                <div className="w-48 lg:w-60">
+                  <SearchBox />
+                </div>
+              </Suspense>
+            )}
+
+            <div className="flex items-center gap-1 bg-muted/60 rounded-full px-1.5 py-1">
               {navItems.map((item) => (
                 <button
                   key={item.type}
                   onClick={() => handleRoute(item.type)}
                   className={clsx(
-                    "px-4 py-1 rounded-md text-sm font-medium",
-                    currentType === item.type &&
-                      "!text-[#000] bg-green-300 border shadow-none"
+                    "px-3.5 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+                    currentType === item.type
+                      ? "bg-background text-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {item.label}
                 </button>
               ))}
-              {showSidebar && <LogoutButton />}
-              {/* <ThemeToggle /> */}
             </div>
 
-            {/* Mobile Nav Icon */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-700 hover:text-gray-900 focus:outline-none"
-              >
-                {isOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
-              </button>
-            </div>
+            {showSidebar && <LogoutButton />}
+            <ThemeToggle />
+          </div>
+
+          {/* Mobile Controls */}
+          <div className="flex md:hidden items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 rounded-lg hover:bg-muted transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu Items */}
+      {/* Mobile Dropdown */}
       {isOpen && (
-        <div className="md:hidden px-4 pb-4">
-          {navItems.map((item) => (
-            <button
-              key={item.type}
-              onClick={() => handleRoute(item.type)}
-              className={clsx(
-                "block w-full text-left px-3 py-2 rounded-md text-sm font-medium mt-1",
-                currentType === item.type
-                  ? "text-white bg-blue-600"
-                  : "text-gray-700 hover:bg-gray-200"
-              )}
-            >
-              {item.label}
-            </button>
-          ))}
+        <div className="md:hidden border-t border-border/60 px-4 py-3 space-y-3 bg-background/95 backdrop-blur-md">
+          <Suspense fallback={null}>
+            <SearchBox />
+          </Suspense>
+
+          <div className="flex flex-wrap gap-2 pt-1">
+            {navItems.map((item) => (
+              <button
+                key={item.type}
+                onClick={() => handleRoute(item.type)}
+                className={clsx(
+                  "px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+                  currentType === item.type
+                    ? "bg-foreground text-background"
+                    : "bg-muted text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {showSidebar && (
+            <div className="pt-1 border-t border-border/40">
+              <LogoutButton />
+            </div>
+          )}
         </div>
       )}
     </nav>
